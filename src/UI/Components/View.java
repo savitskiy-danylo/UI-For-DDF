@@ -7,6 +7,15 @@ public class View {
     private String[] mutateText;
     private int width, height = 3, x, y=1;
     private Borders borders;
+
+    public ColorScheme getColorScheme() {
+        return colorScheme;
+    }
+
+    public void setColorScheme(ColorScheme colorScheme) {
+        this.colorScheme = colorScheme;
+    }
+
     private ColorScheme colorScheme;
 
     public View(String text, Borders borders, ColorScheme colorScheme){

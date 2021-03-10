@@ -15,10 +15,7 @@ public class Main {
         AnsiConsole.systemInstall();
         System.out.print(ansi().eraseScreen());
         ViewBuilder viewBuilder = new BiosView();
-        View view = viewBuilder.build(" .-.\n" +
-                " | |\n" +
-                ".'s`.\n" +
-                "`._.'");
+        View view = viewBuilder.build("Button");
         view.draw();
         new Scanner(System.in).nextLine();
         AnsiConsole.systemUninstall();
