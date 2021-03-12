@@ -1,21 +1,23 @@
 package Core;
 
+import java.util.ArrayList;
+
 public abstract class Entity {
     private Entity enemy;
-    private final int strengthBase, agilityBase, actionPointsBase, armorBase, damageBase, gachiPowerBase;
-    private int strengthGreen, agilityGreen, actionPointsGreen, armorGreen, damageGreen, gachiPowerGreen;
-    private final Inventory inventory;
+    private final int strengthBase, agilityBase, actionPointsBase, armorBase, damageBase;
+    private int strengthGreen, agilityGreen, actionPointsGreen, armorGreen, damageGreen, gachiPower;
+    private final ArrayList<Buff> buffs = new ArrayList<>();
+    private Inventory inventory;
+
     private final String name;
 
-
     public Entity(int strengthBase, int agilityBase, int actionPointsBase, int armorBase, int damageBase,
-                  int gachiPowerBase, Inventory inventory, String name) {
+                  Inventory inventory, String name) {
         this.strengthBase = strengthBase;
         this.agilityBase = agilityBase;
         this.actionPointsBase = actionPointsBase;
         this.armorBase = armorBase;
         this.damageBase = damageBase;
-        this.gachiPowerBase = gachiPowerBase;
         this.inventory = inventory;
         this.name = name;
     }
@@ -36,12 +38,8 @@ public abstract class Entity {
         this.armorGreen = armorGreen;
     }
 
-    public void setDamageGreen(int damageGreen) {
-        this.damageGreen = damageGreen;
-    }
-
-    public void setGachiPowerGreen(int gachiPowerGreen) {
-        this.gachiPowerGreen = gachiPowerGreen;
+    public void setGachiPower(int gachiPower) {
+        this.gachiPower = gachiPower;
     }
 
     public int getStrengthGreen() {
@@ -64,8 +62,8 @@ public abstract class Entity {
         return damageGreen;
     }
 
-    public int getGachiPowerGreen() {
-        return gachiPowerGreen;
+    public int getGachiPower() {
+        return gachiPower;
     }
 
     public int getStrengthBase() {
@@ -88,10 +86,6 @@ public abstract class Entity {
         return damageBase;
     }
 
-    public int getGachiPowerBase() {
-        return gachiPowerBase;
-    }
-
     public Entity getEnemy() {
         return enemy;
     }
@@ -104,5 +98,9 @@ public abstract class Entity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }
