@@ -1,45 +1,92 @@
 package Core;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Entity {
     private Entity enemy;
+    private final int hpBase, dodgesMax, strengthMultiplier, agilityMultiplier, gachiPowerMax;
     private final int strengthBase, agilityBase, actionPointsBase, armorBase, damageBase;
-    private int strengthGreen, agilityGreen, actionPointsGreen, armorGreen, damageGreen, gachiPower;
-    private final ArrayList<Buff> buffs = new ArrayList<>();
-    private Inventory inventory;
+    private int strengthGreen, agilityGreen, actionPointsGreen, armorGreen, damageGreen, gachiPower, hpMax, dodges, hp;
+    private int money;
+    protected final ArrayList<Buff> buffs = new ArrayList<>();
+    protected Inventory inventory;
+    protected boolean isDead = false;
+    private String name;
 
-    private final String name;
-
-    public Entity(int strengthBase, int agilityBase, int actionPointsBase, int armorBase, int damageBase,
-                  Inventory inventory, String name) {
+    public Entity(int hpBase, int dodgesMax, int strengthMultiplier, int agilityMultiplier, int gachiPowerMax,
+                  int strengthBase, int agilityBase, int actionPointsBase, int armorBase, int damageBase) {
+        this.hpBase = hpBase;
+        this.dodgesMax = dodgesMax;
+        this.strengthMultiplier = strengthMultiplier;
+        this.agilityMultiplier = agilityMultiplier;
+        this.gachiPowerMax = gachiPowerMax;
         this.strengthBase = strengthBase;
         this.agilityBase = agilityBase;
         this.actionPointsBase = actionPointsBase;
         this.armorBase = armorBase;
         this.damageBase = damageBase;
-        this.inventory = inventory;
-        this.name = name;
+        refreshDodges();
+        refreshHpMax();
     }
 
-    public void setStrengthGreen(int strengthGreen) {
-        this.strengthGreen = strengthGreen;
+    public abstract void nextTurn();
+
+    private void refreshHpMax(){
+        hpMax = (strengthBase + strengthGreen) * strengthMultiplier + hpBase;
     }
 
-    public void setAgilityGreen(int agilityGreen) {
-        this.agilityGreen = agilityGreen;
+    private void refreshDodges(){
+        dodges = (agilityBase + agilityGreen) * agilityMultiplier;
+        if(dodges > dodgesMax) dodges = dodgesMax;
     }
 
-    public void setActionPointsGreen(int actionPointsGreen) {
-        this.actionPointsGreen = actionPointsGreen;
+    public Entity getEnemy() {
+        return enemy;
     }
 
-    public void setArmorGreen(int armorGreen) {
-        this.armorGreen = armorGreen;
+    public int getHp() {
+        return hp;
     }
 
-    public void setGachiPower(int gachiPower) {
-        this.gachiPower = gachiPower;
+    public int getDodges() {
+        return dodges;
+    }
+
+    public int getDodgesMax() {
+        return dodgesMax;
+    }
+
+    public int getStrengthMultiplier() {
+        return strengthMultiplier;
+    }
+
+    public int getAgilityMultiplier() {
+        return agilityMultiplier;
+    }
+
+    public int getGachiPowerMax() {
+        return gachiPowerMax;
+    }
+
+    public int getStrengthBase() {
+        return strengthBase;
+    }
+
+    public int getAgilityBase() {
+        return agilityBase;
+    }
+
+    public int getActionPointsBase() {
+        return actionPointsBase;
+    }
+
+    public int getArmorBase() {
+        return armorBase;
+    }
+
+    public int getDamageBase() {
+        return damageBase;
     }
 
     public int getStrengthGreen() {
@@ -66,41 +113,78 @@ public abstract class Entity {
         return gachiPower;
     }
 
-    public int getStrengthBase() {
-        return strengthBase;
+    public int getHpMax() {
+        return hpMax;
     }
 
-    public int getAgilityBase() {
-        return agilityBase;
+    public Inventory getInventory() {
+        return inventory;
     }
 
-    public int getActionPointsBase() {
-        return actionPointsBase;
+    public boolean isDead() {
+
+        return isDead;
     }
 
-    public int getArmorBase() {
-        return armorBase;
-    }
-
-    public int getDamageBase() {
-        return damageBase;
-    }
-
-    public Entity getEnemy() {
-        return enemy;
+    public String getName() {
+        return name;
     }
 
     public void setEnemy(Entity enemy) {
         this.enemy = enemy;
     }
 
-    public abstract void nextTurn();
+    public void setStrengthGreen(int strengthGreen) {
+        this.strengthGreen = strengthGreen;
+        refreshHpMax();
+    }
 
-    public Inventory getInventory() {
-        return inventory;
+    public void setAgilityGreen(int agilityGreen) {
+        this.agilityGreen = agilityGreen;
+        refreshDodges();
+    }
+
+    public void setActionPointsGreen(int actionPointsGreen) {
+        this.actionPointsGreen = actionPointsGreen;
+    }
+
+    public void setArmorGreen(int armorGreen) {
+        this.armorGreen = armorGreen;
+    }
+
+    public void setDamageGreen(int damageGreen) {
+        this.damageGreen = damageGreen;
+    }
+
+    public void setGachiPower(int gachiPower) {
+        this.gachiPower = gachiPower;
     }
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDamage(int rawDamage){
+
+        int damage = rawDamage - (armorBase + armorGreen);
+        hp -= damage < 0 ? 0 : damage;
+        if(hp < 1) isDead = true;
+    }
+    private static Random random = new Random();//TODO не забудь про статик
+    /*public boolean tryDodge(){
+        int result = random.nextInt(101);
+        return
+    }*/
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
     }
 }

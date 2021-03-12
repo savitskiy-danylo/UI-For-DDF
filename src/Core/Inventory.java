@@ -6,11 +6,10 @@ public class Inventory {
 
     private final ArrayList<Item> items = new ArrayList<>();
     private final MessageBox messageBox = MessageBox.getInstance();
-    private static final Message newItemMessage = new Message("You have found a new item!", MessageType.POSITIVE);
 
     public void addItem(Item item){
-        messageBox.addNewMessage(newItemMessage);
         items.add(item);
+        item.itemFound();
     }
 
     public void addItem(Inventory inventory){

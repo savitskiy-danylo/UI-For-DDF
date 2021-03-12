@@ -1,15 +1,16 @@
 package Core;
 
 public abstract class Item {
-    private Entity target;
-    private Inventory inventory;
-    private Quality quality;
-    private String name, description;
-    private int purchasePrice, sellingPrice;
+    protected Entity target;
+    protected Inventory inventory;
+    protected Quality quality;
+    protected MessageBox messageBox = MessageBox.getInstance();
+    protected String name, description;
+    protected int purchasePrice, sellingPrice;
+    protected Message itemFound = new Message("Item " + name + " found", MessageType.POSITIVE);
 
     public Item(Entity target) {
         this.target = target;
-
     }
 
     public Quality getQuality() {
@@ -32,6 +33,9 @@ public abstract class Item {
         return sellingPrice;
     }
 
+    public void itemFound(){
+        messageBox.addNewMessage(itemFound);
+    }
     public abstract boolean canUse();
     public abstract void use();
 }

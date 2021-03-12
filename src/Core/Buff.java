@@ -1,7 +1,7 @@
 package Core;
 
 public abstract class Buff {
-    private final Entity target, causer;
+    protected final Entity target, causer;
 
     public Buff(Entity target, Entity causer) {
         this.target = target;
