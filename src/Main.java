@@ -1,17 +1,22 @@
-import UI.Components.Borders;
-import UI.Components.Builders.Interfaces.ViewBuilder;
-import UI.Components.Builders.Realizations.BiosView;
-import UI.Components.Builders.Realizations.SimpleView;
-import UI.Components.View;
-import org.fusesource.jansi.Ansi;
-import org.fusesource.jansi.AnsiConsole;
-
-import java.util.Scanner;
+import Core.Message;
+import Core.MessageBox;
+import Core.MessageType;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Main {
     public static void main(String[] args){
+        MessageBox messageBox = MessageBox.getInstance();
+        messageBox.addNewMessageEventListener(() -> newMessage());
+        messageBox.addNewMessage(new Message("Hello!", MessageType.SYSTEM));
+    }
+
+    public static void newMessage(){
+        System.out.print("New message! Message text: " + MessageBox.getInstance().getMessage().getText());
+
+    }
+}
+/*
         AnsiConsole.systemInstall();
         System.out.print(ansi().eraseScreen());
         ViewBuilder viewBuilder = new BiosView();
@@ -19,8 +24,4 @@ public class Main {
         view.draw();
         new Scanner(System.in).nextLine();
         AnsiConsole.systemUninstall();
-    }
-}
-/*
-
 * */
