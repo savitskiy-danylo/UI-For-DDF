@@ -10,7 +10,9 @@ public class Main {
     public static void main(String[] args){
         MessageBox.getInstance().addNewMessageEventListener(() -> newMessage());
         Entity oleg = new Player();
+        oleg.setName("Олех");
         Entity serGey = new Player();
+        serGey.setName("СерГецій");
         Lash lash = new Lash(oleg);
         LatexCostume costume = new LatexCostume(serGey);
         oleg.getInventory().addItemLoot(lash);

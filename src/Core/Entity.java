@@ -54,7 +54,7 @@ public abstract class Entity {
     protected Message notEnoughRange = new Message("Not enough range for attack", MessageType.NEGATIVE);
     protected Message transactionMessage = new Message("Action points was exchanged on gachi power", MessageType.NEUTRAL);
     protected Message successfulDodge = new Message("You dodge damage!", MessageType.POSITIVE);
-    protected Message loseMessage = new Message("You were killed", MessageType.NEGATIVE);
+    protected Message loseMessage = new Message("You were killed ", MessageType.NEGATIVE);
     //endregion
 
     public Entity(int strengthBase, int strengthMultiplier, int hpBase,
@@ -123,7 +123,7 @@ public abstract class Entity {
         messageBox.addNewMessage(messageWithOn(damageTakenMessage, Integer.toString(pureDamage)));
         if(hp < 1) {
             isDead = true;
-            messageBox.addNewMessage(loseMessage);
+            messageBox.addNewMessage(messageWithOn(loseMessage, name));
             //TODO Подумай насчет удаления существа из очереди
         }
     }
@@ -359,6 +359,9 @@ public abstract class Entity {
     public void nextTurn(){
         if(isDead) new Exception("Мертвец восстал");
         actionPoints = actionPointsMax;
+        armor = 0;
+        damageCurrentBase = 0;
+        damageCurrent = 0;
     }
 
     public boolean isDead(){ return isDead; }
