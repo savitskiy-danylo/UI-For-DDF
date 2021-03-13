@@ -44,7 +44,7 @@ public abstract class Entity {
     protected final ArrayList<Buff> buffs = new ArrayList<>();
     protected final ArrayList<SuperAttack> superAttacks = new ArrayList<>();
     protected SuperAttack currentSuperAttack = null;
-    protected static final Random random = new Random(); //TODO не забудь проверить статическое это поле
+    protected final Random random = new Random(); //TODO не забудь проверить статическое это поле
 
     //region Сообщения
     protected static MessageBox messageBox = MessageBox.getInstance(); //TODO не забудь проверить статическое это поле
@@ -147,7 +147,7 @@ public abstract class Entity {
     }
 
     private boolean tryDodge(){
-        return random.nextInt(101) <= dodges;
+        return random.nextInt(100) + 1 <= dodges;
     }
 
     public void addAgility(int agility){
@@ -201,7 +201,7 @@ public abstract class Entity {
 
     private void refreshCurrentDamageBase(){
         int range = damageBaseMax - damageBaseMin;
-        damageCurrentBase = random.nextInt(range+1);
+        damageCurrentBase = random.nextInt(range+1) + damageBaseMin;
         damageCurrent = damageCurrentBase;
     }
     private void refreshCurrentDamage(){

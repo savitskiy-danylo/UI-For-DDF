@@ -1,5 +1,6 @@
 import Controllers.MBox.MessageBox;
 import Core.*;
+import Core.Components.Base.LatexCostume;
 import Core.Components.Lash;
 import Core.Player;
 
@@ -11,8 +12,11 @@ public class Main {
         Entity oleg = new Player();
         Entity serGey = new Player();
         Lash lash = new Lash(oleg);
+        LatexCostume costume = new LatexCostume(serGey);
         oleg.getInventory().addItemLoot(lash);
-        oleg.getInventory().setArmor(lash);
+        oleg.getInventory().setWeapon(lash);
+        serGey.getInventory().addItemLoot(costume);
+        serGey.getInventory().setArmor(costume);
         oleg.setEnemy(serGey);
         serGey.setEnemy(oleg);
         while (!oleg.isDead() && !serGey.isDead()) {

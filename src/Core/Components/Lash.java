@@ -6,7 +6,6 @@ import Core.Entity;
 public class Lash extends Equipment {
     {
         name = "Lash";
-
     }
 
     public Lash(Entity target) {
