@@ -1,11 +1,10 @@
 package Core;
 
 public abstract class Buff {
-    protected final Entity target, causer;
+    protected final Entity target;
 
-    public Buff(Entity target, Entity causer) {
+    public Buff(Entity target) {
         this.target = target;
-        this.causer = causer;
     }
-    public abstract void nextTurn();
+    public abstract void use();
 }
