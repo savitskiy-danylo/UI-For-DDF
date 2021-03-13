@@ -17,8 +17,8 @@ public abstract class Item {
     protected MessageBox messageBox = MessageBox.getInstance();
     protected String name, description;
     protected int purchasePrice, sellingPrice;
-    protected Message itemFound = new Message("Item " + name + " found", MessageType.POSITIVE);
-    protected Message itemBought = new Message("Item " + name + " bought", MessageType.POSITIVE);
+    protected Message itemFound;
+    protected Message itemBought;
     public Item(Entity target) {
         this.target = target;
     }

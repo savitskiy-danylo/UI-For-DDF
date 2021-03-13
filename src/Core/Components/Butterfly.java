@@ -5,13 +5,19 @@ import Controllers.MBox.MessageType;
 import Core.Components.Base.Usable.Equipment;
 import Core.Entity;
 
-public class Lash extends Equipment {
-    public Lash(Entity target) {
+public class Butterfly extends Equipment {
+    int damage = 3, agility = 10;
+    public Butterfly(Entity target) {
         super(target);
-        name = "Lash";
+        buff = new BuffForButterfly(target, damage, agility);
+        name = "BUTTerfly";
         itemFound = new Message("You found " + name, MessageType.POSITIVE);
         itemBought = new Message("You bought " + name, MessageType.POSITIVE);
-        buff = new PlusDamage(target, 5);
+    }
+
+    @Override
+    public void takeOff() {
+        target.removeBuff(buff);
     }
 
     @Override
@@ -22,10 +28,5 @@ public class Lash extends Equipment {
     @Override
     public void use() {
         target.addBuff(buff);
-    }
-
-    @Override
-    public void takeOff() {
-        target.removeBuff(buff);
     }
 }

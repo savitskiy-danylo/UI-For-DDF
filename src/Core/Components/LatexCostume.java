@@ -1,5 +1,7 @@
-package Core.Components.Base;
+package Core.Components;
 
+import Controllers.MBox.Message;
+import Controllers.MBox.MessageType;
 import Core.Components.Base.Usable.Equipment;
 import Core.Components.PlusArmor;
 import Core.Entity;
@@ -10,6 +12,8 @@ public class LatexCostume extends Equipment {
     public LatexCostume(Entity target) {
         super(target);
         name = "LatexWish";
+        itemFound = new Message("You found " + name, MessageType.POSITIVE);
+        itemBought = new Message("You bought " + name, MessageType.POSITIVE);
         buff = new PlusArmor(target, 5);
 
     }

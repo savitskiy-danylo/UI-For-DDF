@@ -157,6 +157,7 @@ public abstract class Entity {
 
     public void subtractAgility(int agility){
         this.agility -= agility;
+        if(this.agility < agilityBase) this.agility = agilityBase;
         changeDodges(-agility);
     }
 
@@ -362,6 +363,7 @@ public abstract class Entity {
         armor = 0;
         damageCurrentBase = 0;
         damageCurrent = 0;
+        subtractAgility(getAgility());
     }
 
     public boolean isDead(){ return isDead; }

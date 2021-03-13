@@ -1,6 +1,8 @@
 import Controllers.MBox.MessageBox;
 import Core.*;
-import Core.Components.Base.LatexCostume;
+import Core.Components.LatexCostume;
+import Core.Components.Base.Usable.Equipment;
+import Core.Components.Butterfly;
 import Core.Components.Lash;
 import Core.Player;
 
@@ -14,11 +16,14 @@ public class Main {
         Entity serGey = new Player();
         serGey.setName("СерГецій");
         Lash lash = new Lash(oleg);
+        Equipment weapon = new Butterfly(serGey);
         LatexCostume costume = new LatexCostume(serGey);
         oleg.getInventory().addItemLoot(lash);
         oleg.getInventory().setWeapon(lash);
         serGey.getInventory().addItemLoot(costume);
+        serGey.getInventory().addItemLoot(weapon);
         serGey.getInventory().setArmor(costume);
+        serGey.getInventory().setWeapon(weapon);
         oleg.setEnemy(serGey);
         serGey.setEnemy(oleg);
         while (!oleg.isDead() && !serGey.isDead()) {
