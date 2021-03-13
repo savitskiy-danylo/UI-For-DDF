@@ -1,4 +1,4 @@
-package Core;
+package Controllers.MBox;
 
 import java.util.ArrayList;
 

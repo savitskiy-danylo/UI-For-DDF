@@ -1,7 +1,7 @@
-package Core;
+package Controllers.MBox;
 
 public class Message {
-    private final String message;
+    private String message;
     private final MessageType messageType;
 
     public Message(String message, MessageType messageType) {
@@ -11,6 +11,10 @@ public class Message {
 
     public String getText() {
         return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 
     public MessageType getMessageType() {

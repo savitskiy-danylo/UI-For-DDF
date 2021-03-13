@@ -1,4 +1,4 @@
-package Core;
+package Controllers.MBox;
 
 public enum MessageType {
     NEUTRAL,

@@ -1,4 +1,6 @@
-package Core;
+package Core.Components.Base;
+
+import Core.Entity;
 
 public abstract class Buff {
     protected final Entity target;

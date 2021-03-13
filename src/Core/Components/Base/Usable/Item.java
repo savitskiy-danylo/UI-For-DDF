@@ -1,14 +1,24 @@
-package Core;
+package Core.Components.Base.Usable;
+
+import Controllers.MBox.Message;
+import Controllers.MBox.MessageBox;
+import Controllers.MBox.MessageType;
+import Core.Components.Base.Buff;
+import Core.Components.Base.Inventory;
+import Core.Components.Base.Quality;
+import Core.Entity;
 
 public abstract class Item {
     protected Entity target;
 
     protected Inventory inventory;
     protected Quality quality;
+    protected Buff buff;
     protected MessageBox messageBox = MessageBox.getInstance();
     protected String name, description;
     protected int purchasePrice, sellingPrice;
     protected Message itemFound = new Message("Item " + name + " found", MessageType.POSITIVE);
+    protected Message itemBought = new Message("Item " + name + " bought", MessageType.POSITIVE);
     public Item(Entity target) {
         this.target = target;
     }
@@ -42,7 +52,7 @@ public abstract class Item {
     }
 
     public void itemBought(){
-        //TODO сообщение о покупке
+        messageBox.addNewMessage(itemBought);
     }
 
     public abstract boolean canUse();

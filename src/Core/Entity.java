@@ -1,5 +1,13 @@
 package Core;
 
+import Controllers.MBox.Message;
+import Controllers.MBox.MessageBox;
+import Controllers.MBox.MessageType;
+import Core.Components.Base.Buff;
+import Core.Components.Base.Inventory;
+import Core.Components.Base.Usable.Item;
+import Core.Components.Base.SuperAttack;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,23 +24,38 @@ public abstract class Entity {
     private int dodges;
     private final int damageBaseMin, damageBaseMax;
     private int damageCurrentBase, damageCurrent;
+
     private int priceOfAttack;
+
     private final int armorMultiplier;
     private int armor;
     private boolean useActionsPointForArmor = false;
     private final int actionPointsBase;
     private int actionPoints, actionPointsMax;
-    private final int gachiPowerMax, gachiPowerExchangePrice; //TODO стоил ли делать gachiPowerMax константой?
+    private final int gachiPowerMax, gachiPowerExchangePrice;
     private int gachiPower;
     private int money;
-    private int range = 1, position = 1; //TODO реализовать дальность
+
+    private int range = 1;
+
+    private int position = 1;
     protected Entity enemy;
     protected Inventory inventory;
-    protected static MessageBox messageBox = MessageBox.getInstance(); //TODO не забудь проверить статическое это поле
     protected final ArrayList<Buff> buffs = new ArrayList<>();
     protected final ArrayList<SuperAttack> superAttacks = new ArrayList<>();
-    protected SuperAttack currentSuperAttack;
+    protected SuperAttack currentSuperAttack = null;
     protected static final Random random = new Random(); //TODO не забудь проверить статическое это поле
+
+    //region Сообщения
+    protected static MessageBox messageBox = MessageBox.getInstance(); //TODO не забудь проверить статическое это поле
+    protected Message healMessage = new Message("Healed on ", MessageType.POSITIVE);
+    protected Message damageTakenMessage = new Message("You were damaged on ", MessageType.NEGATIVE);
+    protected Message notEnoughAP = new Message("Not enough action points for attack", MessageType.NEGATIVE);
+    protected Message notEnoughRange = new Message("Not enough range for attack", MessageType.NEGATIVE);
+    protected Message transactionMessage = new Message("Action points was exchanged on gachi power", MessageType.NEUTRAL);
+    protected Message successfulDodge = new Message("You dodge damage!", MessageType.POSITIVE);
+    protected Message loseMessage = new Message("You were killed", MessageType.NEGATIVE);
+    //endregion
 
     public Entity(int strengthBase, int strengthMultiplier, int hpBase,
                   int agilityBase, int agilityMultiplier, int dodgesMax,
@@ -42,7 +65,11 @@ public abstract class Entity {
         this.strengthBase = strengthBase;
         this.strengthMultiplier = strengthMultiplier;
         this.hpBase = hpBase;
+        hp = hpBase;
+        hpMax = hpBase;
         this.agilityBase = agilityBase;
+        actionPoints = actionPointsBase;
+        actionPointsMax = actionPointsBase;
         this.agilityMultiplier = agilityMultiplier;
         this.dodgesMax = dodgesMax;
         this.damageBaseMin = damageBaseMin;
@@ -54,9 +81,12 @@ public abstract class Entity {
         this.range = range;
     }
 
+
     //region Сила, хп, хилл, получение урона
+
     public int getStrengthBase() { return strengthBase; }
     public int getStrength() {return  strength; }
+
     public int getHpBase() { return hpBase; }
     public int getHpMax() { return hpMax; }
     public void addStrength(int strength){
@@ -67,36 +97,44 @@ public abstract class Entity {
         this.strength -= strength;
         changeHpMax(-strength);
     }
-
     private void changeHpMax(int changeOn){
         hpMax += changeOn * strengthMultiplier;
         if(hpMax < hpBase) hpMax = hpBase;
         if(hpMax < hp) hp = hpMax;
     }
-
     public void heal(int hp){
         this.hp += hp;
         if(this.hp > hpMax) this.hp = hpMax;
-        //TODO сообщение про отхил
+        messageBox.addNewMessage(messageWithOn(healMessage, Integer.toString(hp)));
+    }
+    private Message messageWithOn(Message message, String text){
+        Message newMessage = new Message(message.getText(), message.getMessageType());
+        newMessage.setMessage(newMessage.getText() + text);
+        return newMessage;
     }
 
     public void takeDamage(int damage){
-        if(tryDodge()) return;
-        //TODO сообщения про полученый урон / уклон от атаки
+        if(tryDodge()){
+            messageBox.addNewMessage(successfulDodge);
+            return;
+        }
         int pureDamage = persist(damage);
         hp -= pureDamage;
+        messageBox.addNewMessage(messageWithOn(damageTakenMessage, Integer.toString(pureDamage)));
         if(hp < 1) {
             isDead = true;
+            messageBox.addNewMessage(loseMessage);
             //TODO Подумай насчет удаления существа из очереди
         }
     }
-    //endregion
 
+
+    //endregion
     //region Ловкость, уклонения, попытка увернуться.
+
     public int getAgilityBase() {
         return agilityBase;
     }
-
     public int getAgility() {
         return agility;
     }
@@ -104,7 +142,6 @@ public abstract class Entity {
     public int getDodgesMax() {
         return dodgesMax;
     }
-
     public int getDodges() {
         return dodges;
     }
@@ -128,17 +165,20 @@ public abstract class Entity {
         if(dodges > dodgesMax) dodges = dodgesMax;
         if(dodges < 0) dodges = 0;
     }
-    //endregion
 
+
+    //endregion
     //region Урон, атака, накладывание бафов, стоимость атаки, можно ли атаковать.
+
     public int getDamageCurrentBase(){ return damageCurrentBase; }
     public int getCurrentDamage(){ return damageCurrent;}
+
     public int getPriceOfAttack() { return priceOfAttack; }
     public void raisePriceOfAttack(int price) { priceOfAttack += price; }
     public void lowerPriceOfAttack(int price){ priceOfAttack -= price; }
-
     public void attack(){
-        if(canAttack()) subtractActionPoints(priceOfAttack);
+        if(!canAttack()) return;
+        subtractActionPoints(priceOfAttack);
         refreshCurrentDamage();
         enemy.takeDamage(damageCurrent);
         addGachiPower(priceOfAttack*gachiPowerExchangePrice);
@@ -146,32 +186,46 @@ public abstract class Entity {
 
     public boolean canAttack(){
         boolean enoughActionPoints = isEnoughActionPoints(priceOfAttack);
-        //TODO сообщение о нехватки ОД.
-        boolean enoughRange = range >= position;
-        //TODO сообщение о нехватки дальности.
+        if(!enoughActionPoints) messageBox.addNewMessage(notEnoughAP);
+        boolean enoughRange = range >= Math.abs(enemy.position - position);
+        if(!enoughRange) messageBox.addNewMessage(notEnoughRange);
         return enoughActionPoints && enoughRange;
     }
+
     public void addCurrentDamage(int damage){ damageCurrent += damage; }
+
     public void subtractDamage(int damage){
         damageCurrent -= damage;
         if(damageCurrent < 0) damageCurrent = 0;
     }
+
     private void refreshCurrentDamageBase(){
         int range = damageBaseMax - damageBaseMin;
         damageCurrentBase = random.nextInt(range+1);
+        damageCurrent = damageCurrentBase;
     }
-
     private void refreshCurrentDamage(){
         refreshCurrentDamageBase();
         refreshBuffs();
     }
-
     private void refreshBuffs(){
         for (var buff :
                 buffs) {
             buff.use();
         }
     }
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public void setRange(int range) {
+        this.range = range;
+    }
+
+    public void setPriceOfAttack(int priceOfAttack) {
+        this.priceOfAttack = priceOfAttack;
+    }
+
     //endregion
 
     //region Броня, защита.
@@ -215,9 +269,9 @@ public abstract class Entity {
     //endregion
 
     //region GP, супер-атака, перевод ОД в GP.
-    public void useSuperAttack(int price) {
+    public void useSuperAttack() {
         refreshCurrentDamageBase();
-        if(currentSuperAttack != null && currentSuperAttack.canUse(actionPoints)) return;
+        if(currentSuperAttack == null || !currentSuperAttack.canUse(actionPoints)) return; //TODO что с атакой?
         enemy.takeDamage(currentSuperAttack.getDamage(damageCurrentBase));
         //TODO Нужно реализовать и подключить супер-техники
     }
@@ -225,7 +279,7 @@ public abstract class Entity {
     public void setSuperAttack(String superAttackName){
         for (var attack :
                 superAttacks) {
-            if(attack.name.equals(superAttackName)){
+            if(attack.getName().equals(superAttackName)){
                 currentSuperAttack = attack;
                 break;
             }
@@ -247,7 +301,7 @@ public abstract class Entity {
         if(useActionsPointForArmor) return;
         int result = actionPoints * gachiPowerExchangePrice;
         addGachiPower(result);
-        //TODO сообщение о переводе очков в GP
+        messageBox.addNewMessage(transactionMessage);
     }
     //endregion
 
@@ -286,8 +340,26 @@ public abstract class Entity {
     public Inventory getInventory() { return inventory; }
     //endregion
 
+    //region Buffs
+    public void addBuff(Buff buff){
+        buffs.add(buff);
+    }
+
+    public boolean containsBuff(Buff buff){
+        return buffs.contains(buff);
+    }
+
+    public void removeBuff(Buff buff){
+        if(containsBuff(buff)){
+            buffs.remove(buff);
+        }
+    }
+    //endregion
+
     public void nextTurn(){
         if(isDead) new Exception("Мертвец восстал");
         actionPoints = actionPointsMax;
     }
+
+    public boolean isDead(){ return isDead; }
 }

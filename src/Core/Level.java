@@ -1,5 +1,7 @@
 package Core;
 
+import Core.Components.Base.Inventory;
+
 import java.util.ArrayList;
 
 public class Level {

@@ -1,4 +1,4 @@
-package Core;
+package Core.Components.Base;
 
 public enum Quality {
     ONE_STAR,
