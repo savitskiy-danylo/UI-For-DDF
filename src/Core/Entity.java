@@ -21,15 +21,18 @@ public abstract class Entity {
     private int armor;
     private boolean useActionsPointForArmor = false;
     private final int actionPointsBase;
-    private int actionPoints;
+    private int actionPoints, actionPointsMax;
     private final int gachiPowerMax, gachiPowerExchangePrice; //TODO стоил ли делать gachiPowerMax константой?
     private int gachiPower;
     private int money;
-    private final int range; //TODO реализовать дальность
+    private int range = 1, position = 1; //TODO реализовать дальность
     protected Entity enemy;
     protected Inventory inventory;
-    protected static final Random random = new Random(); //TODO не забудь проверить статическое это поле
+    protected static MessageBox messageBox = MessageBox.getInstance(); //TODO не забудь проверить статическое это поле
     protected final ArrayList<Buff> buffs = new ArrayList<>();
+    protected final ArrayList<SuperAttack> superAttacks = new ArrayList<>();
+    protected SuperAttack currentSuperAttack;
+    protected static final Random random = new Random(); //TODO не забудь проверить статическое это поле
 
     public Entity(int strengthBase, int strengthMultiplier, int hpBase,
                   int agilityBase, int agilityMultiplier, int dodgesMax,
@@ -49,7 +52,6 @@ public abstract class Entity {
         this.gachiPowerMax = gachiPowerMax;
         this.gachiPowerExchangePrice = gachiPowerExchangePrice;
         this.range = range;
-        //TODO конструктор переписать
     }
 
     //region Сила, хп, хилл, получение урона
@@ -136,14 +138,19 @@ public abstract class Entity {
     public void lowerPriceOfAttack(int price){ priceOfAttack -= price; }
 
     public void attack(){
-        //TODO сообщение о нехватки ОД.
-        if(canAttack()) actionPoints -= priceOfAttack;
+        if(canAttack()) subtractActionPoints(priceOfAttack);
         refreshCurrentDamage();
         enemy.takeDamage(damageCurrent);
-        //TODO плюс GP за атаку
+        addGachiPower(priceOfAttack*gachiPowerExchangePrice);
     }
 
-    public boolean canAttack(){ return priceOfAttack - actionPoints >= 0; }
+    public boolean canAttack(){
+        boolean enoughActionPoints = isEnoughActionPoints(priceOfAttack);
+        //TODO сообщение о нехватки ОД.
+        boolean enoughRange = range >= position;
+        //TODO сообщение о нехватки дальности.
+        return enoughActionPoints && enoughRange;
+    }
     public void addCurrentDamage(int damage){ damageCurrent += damage; }
     public void subtractDamage(int damage){
         damageCurrent -= damage;
@@ -183,21 +190,47 @@ public abstract class Entity {
 
     //region ОД, флаг использование од.
     public int getActionPoints(){ return actionPoints; }
-    public void addActionPoints(int points){ actionPoints += points; }
-    public void subtractActionPoints(int points) {
-        actionPoints -= points;
-        if(actionPoints < actionPointsBase) actionPoints = actionPointsBase;
+    public int getActionPointsMax(){ return  actionPointsMax; }
+    public void addActionPointsMax(int points){ actionPointsMax += points; }
+    public void addActionPoints(int points){
+        actionPoints += points;
+        if(actionPoints > actionPointsMax) actionPoints = actionPointsMax;
     }
+    public void subtractActionPointsMax(int points) {
+        actionPointsMax -= points;
+        if(actionPointsMax < actionPointsBase) actionPointsMax = actionPointsBase;
+    }
+
+    public void subtractActionPoints(int points) {
+        if(!isEnoughActionPoints(points)) return;
+        actionPoints -= points;
+    }
+
+    public boolean isEnoughActionPoints(int price){
+        return actionPoints - price >= 0;
+    }
+
     public boolean isUseActionPointsForArmor(){ return useActionsPointForArmor; }
     public void changeFlagActionPointsForArmor(){ useActionsPointForArmor = !useActionsPointForArmor; }
     //endregion
 
     //region GP, супер-атака, перевод ОД в GP.
-    public boolean canUseSuperAttack(int price){ return gachiPower - price >= 0; }
     public void useSuperAttack(int price) {
-        //TODO сообщение про нехватку GP
-        if(!canUseSuperAttack(price)) return;
+        refreshCurrentDamageBase();
+        if(currentSuperAttack != null && currentSuperAttack.canUse(actionPoints)) return;
+        enemy.takeDamage(currentSuperAttack.getDamage(damageCurrentBase));
         //TODO Нужно реализовать и подключить супер-техники
+    }
+
+    public void setSuperAttack(String superAttackName){
+        for (var attack :
+                superAttacks) {
+            if(attack.name.equals(superAttackName)){
+                currentSuperAttack = attack;
+                break;
+            }
+        }
+        //TODO ERROR?
     }
 
     public void addGachiPower(int power){
@@ -219,9 +252,10 @@ public abstract class Entity {
     //endregion
 
     //region Операции с деньгами
-    public void buy(int price){
+    public void buy(int price, Item item){
         if(!canBuy(price)) return;
         money -= price;
+
     }
 
     public boolean canBuy(int price){
@@ -237,10 +271,23 @@ public abstract class Entity {
     public void setName(String name){ this.name = name; }
     //endregion
 
-    public Inventory getInventory() { return inventory; }
-    public void setInventory(Inventory inventory) { this.inventory = inventory; }
-    public void addItem(Item item){
-        inventory.addItem(item);
+    //region Работа с врагами
+    public void setEnemy(Entity enemy){ this.enemy = enemy; }
+    public boolean canAttackThis(Entity entity){
+        Entity data = this.enemy;
+        enemy = entity;
+        boolean result = canAttack();
+        enemy = data;
+        return result;
     }
+    //endregion
 
+    //region Инвентарь
+    public Inventory getInventory() { return inventory; }
+    //endregion
+
+    public void nextTurn(){
+        if(isDead) new Exception("Мертвец восстал");
+        actionPoints = actionPointsMax;
+    }
 }
