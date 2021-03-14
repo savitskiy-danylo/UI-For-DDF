@@ -3,8 +3,7 @@ package Core.Components;
 import Controllers.MBox.Message;
 import Controllers.MBox.MessageType;
 import Core.Components.Base.Usable.Equipment;
-import Core.Components.PlusArmor;
-import Core.Entity;
+import Core.EntitiesOLD.Base.Entity;
 
 public class LatexCostume extends Equipment {
 

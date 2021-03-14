@@ -1,7 +1,7 @@
 package Core.Components;
 
 import Core.Components.Base.Buff;
-import Core.Entity;
+import Core.EntitiesOLD.Base.Entity;
 
 public class PlusDamage extends Buff {
     private int damage;

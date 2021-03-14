@@ -3,7 +3,7 @@ package Core.Components;
 import Controllers.MBox.Message;
 import Controllers.MBox.MessageType;
 import Core.Components.Base.Usable.Equipment;
-import Core.Entity;
+import Core.EntitiesOLD.Base.Entity;
 
 public class Lash extends Equipment {
     public Lash(Entity target) {

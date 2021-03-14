@@ -1,15 +1,17 @@
 import Controllers.MBox.MessageBox;
-import Core.*;
-import Core.Components.LatexCostume;
-import Core.Components.Base.Usable.Equipment;
-import Core.Components.Butterfly;
-import Core.Components.Lash;
-import Core.Player;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Main {
     public static void main(String[] args){
+
+    }
+
+    public static void newMessage(){
+        System.out.println(MessageBox.getInstance().getMessage().getText());
+    }
+}
+/*
         MessageBox.getInstance().addNewMessageEventListener(() -> newMessage());
         Entity oleg = new Player();
         oleg.setName("Олех");
@@ -34,14 +36,10 @@ public class Main {
             oleg.nextTurn();
             serGey.nextTurn();
         }
-    }
 
-    public static void newMessage(){
-        System.out.println(MessageBox.getInstance().getMessage().getText());
 
-    }
-}
-/*
+
+
         MessageBox messageBox = MessageBox.getInstance();
         messageBox.addNewMessageEventListener(() -> newMessage());
         messageBox.addNewMessage(new Message("Hello!", MessageType.SYSTEM));

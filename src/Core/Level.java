@@ -1,6 +1,7 @@
 package Core;
 
 import Core.Components.Base.Inventory;
+import Core.EntitiesOLD.Base.Entity;
 
 import java.util.ArrayList;
 

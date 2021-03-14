@@ -2,11 +2,10 @@ package Core.Components.Base.Usable;
 
 import Controllers.MBox.Message;
 import Controllers.MBox.MessageBox;
-import Controllers.MBox.MessageType;
 import Core.Components.Base.Buff;
 import Core.Components.Base.Inventory;
 import Core.Components.Base.Quality;
-import Core.Entity;
+import Core.EntitiesOLD.Base.Entity;
 
 public abstract class Item {
     protected Entity target;

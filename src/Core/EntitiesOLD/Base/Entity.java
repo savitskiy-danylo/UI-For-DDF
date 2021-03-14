@@ -1,4 +1,4 @@
-package Core;
+package Core.EntitiesOLD.Base;
 
 import Controllers.MBox.Message;
 import Controllers.MBox.MessageBox;
@@ -365,6 +365,6 @@ public abstract class Entity {
         damageCurrent = 0;
         subtractAgility(getAgility());
     }
-
+    public abstract boolean retreat();
     public boolean isDead(){ return isDead; }
 }

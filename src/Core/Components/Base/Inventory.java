@@ -3,7 +3,7 @@ package Core.Components.Base;
 import Controllers.MBox.MessageBox;
 import Core.Components.Base.Usable.Equipment;
 import Core.Components.Base.Usable.Item;
-import Core.Entity;
+import Core.EntitiesOLD.Base.Entity;
 
 import java.util.ArrayList;
 
