@@ -13,10 +13,6 @@ public class Inventory {
 
     private int money;
 
-    public Inventory(Entity owner) {
-        this.owner = owner;
-    }
-
     public void addItem(Item item){
         Equipment equipment = (Equipment) item;
         if(equipment != null)
@@ -80,6 +76,10 @@ public class Inventory {
         return money - price >= 0;
     }
 
+
+    public void setOwner(Entity owner) {
+        this.owner = owner;
+    }
 
     //region Getters
     public int getMoney() {

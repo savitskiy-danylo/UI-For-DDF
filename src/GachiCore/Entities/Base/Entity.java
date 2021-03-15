@@ -7,18 +7,29 @@ import GachiCore.Components.Stats;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.function.Consumer;
 
-public class Entity {
+public abstract class Entity {
+    private String name, description;
+
     private Entity enemy;
     protected Stats stats;
     protected Inventory inventory;
 
-    protected ArrayList<Buff> once;
-    protected ArrayList<Buff> eachAttack;
-    protected ArrayList<Buff> eachTurn;
+    protected ArrayList<Buff> once = new ArrayList<>();
+    protected ArrayList<Buff> eachAttack = new ArrayList<>();
+    protected ArrayList<Buff> eachTurn = new ArrayList<>();
 
     private Random random = new Random();
     private int additionalArmor = 0;
+
+    private Consumer<Entity> entityConsumer = null;
+
+    public Entity(Stats stats, Inventory inventory) {
+        this.stats = stats;
+        this.inventory = inventory;
+        inventory.setOwner(this);
+    }
 
     public void nextTurn(){
         takeOnBuffsOnTurn();
@@ -48,15 +59,33 @@ public class Entity {
     }
 
     public void attack(){
+        if(enemy == null) return;
+        //TODO удали
+
+        if(!stats.isEnoughActionPoints(stats.getPriceOfAttack())) return;
         takeOnBuffsOnAttack();
         enemy.takeDamage(stats.getDamageCurrent());
+        stats.minusActionPoints(stats.getPriceOfAttack());
+
         takeOffBuffsOnAttack();
     }
+
+    public void afterAttack(int damage){}
 
     public void takeDamage(int damage){
         if(tryDodge()) return;
         int pureDamage = persist(damage);
         stats.minusStrength(pureDamage);
+        if(!isAlive()) death();
+    }
+
+    protected void death(){
+        if(entityConsumer != null)
+            entityConsumer.accept(this);
+    }
+
+    public void addActionAfterDeath(Consumer<Entity> entityConsumer){
+        this.entityConsumer = entityConsumer;
     }
 
     protected boolean tryDodge(){
@@ -109,6 +138,14 @@ public class Entity {
 
     //region Getters
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public boolean isAlive() {
         return stats.getStrength() > 0;
     }
@@ -127,6 +164,14 @@ public class Entity {
 
     //endregion
     //region Setters
+
+    protected void setName(String name) {
+        this.name = name;
+    }
+
+    protected void setDescription(String description) {
+        this.description = description;
+    }
 
     protected void setInventory(Inventory inventory) {
         this.inventory = inventory;

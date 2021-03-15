@@ -8,23 +8,42 @@ public class Stats {
     private final int strengthMaxBase;
 
 
-    private int damageMin, damageMax;
+    private int damageMin, damageMax, priceOfAttack, priceOfAttackBase;
     private int strength, strengthMax, agility, agilityMax;
     private int armor, armorMultiplier;
     private int actionPointsCurrent, actionPointsMax;
 
     private final Random random = new Random();
 
-    public Stats(int damageBaseMin, int damageBaseMax, int actionPointsBase, int strengthMaxBase) {
+    public Stats(int damageBaseMin, int damageBaseMax, int actionPointsBase, int strengthMaxBase,
+                 int priceOfAttackBase, int agilityMax, int armorMultiplier) {
+        this.actionPointsBase = actionPointsBase;
+        actionPointsMax = actionPointsBase;
+        actionPointsCurrent = actionPointsBase;
+
         this.damageBaseMin = damageBaseMin;
         this.damageBaseMax = damageBaseMax;
-        this.actionPointsBase = actionPointsBase;
-
         damageMin = damageBaseMin;
         damageMax = damageBaseMax;
-        actionPointsMax = actionPointsBase;
+
         this.strengthMaxBase = strengthMaxBase;
         strengthMax = strengthMaxBase;
+        strength = strengthMaxBase;
+
+        this.priceOfAttackBase = priceOfAttackBase;
+        priceOfAttack = priceOfAttackBase;
+
+        this.agilityMax = agilityMax;
+        this.armorMultiplier = armorMultiplier;
+    }
+
+    public void addPriceOfAttack(int number){
+        priceOfAttack += number;
+    }
+
+    public void minusPriceOfAttack(int number){
+        priceOfAttack -= number;
+        if(priceOfAttack < priceOfAttackBase) priceOfAttack = priceOfAttackBase;
     }
 
     public void addStrengthMax(int number){
@@ -99,6 +118,15 @@ public class Stats {
     }
 
     //region Getters
+
+
+    public int getPriceOfAttack() {
+        return priceOfAttack;
+    }
+
+    public int getPriceOfAttackBase() {
+        return priceOfAttackBase;
+    }
 
     public int getStrengthMaxBase() {
         return strengthMaxBase;

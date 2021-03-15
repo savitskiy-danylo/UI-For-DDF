@@ -5,40 +5,60 @@ import Core.Components.Base.Usable.Equipment;
 import Core.Components.Butterfly;
 import Core.Components.Lash;
 import Core.Player;
+import GachiCore.Entities.Alek;
+import GachiCore.Entities.AlekBuilder;
+import GachiCore.Entities.Base.Entity;
+import GachiCore.Entities.EntityBuilder;
+
+import java.util.ArrayList;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Main {
+    private static ArrayList<Entity> aleks = new ArrayList<>();
+    private static int index = 1;
     public static void main(String[] args){
         MessageBox.getInstance().addNewMessageEventListener(() -> newMessage());
-        Entity oleg = new Player();
-        oleg.setName("Олех");
-        Entity serGey = new Player();
-        serGey.setName("СерГецій");
-        Lash lash = new Lash(oleg);
-        Equipment weapon = new Butterfly(serGey);
-        LatexCostume costume = new LatexCostume(serGey);
-        oleg.getInventory().addItemLoot(lash);
-        oleg.getInventory().setWeapon(lash);
-        serGey.getInventory().addItemLoot(costume);
-        serGey.getInventory().addItemLoot(weapon);
-        serGey.getInventory().setArmor(costume);
-        serGey.getInventory().setWeapon(weapon);
-        oleg.setEnemy(serGey);
-        serGey.setEnemy(oleg);
-        while (!oleg.isDead() && !serGey.isDead()) {
-            oleg.attack();
-            serGey.attack();
-            oleg.attack();
-            serGey.attack();
-            oleg.nextTurn();
-            serGey.nextTurn();
+        AlekBuilder entityBuilder = new AlekBuilder();
+
+        Alek alekTinker = entityBuilder.build();
+        aleks.add(alekTinker);
+        alekTinker.addActionAfterDeath((Entity entity) -> removeAlek(entity));
+
+        Alek alekEarthSpirit = entityBuilder.build();
+        aleks.add(alekEarthSpirit);
+        alekEarthSpirit.addActionAfterDeath((Entity entity) -> removeAlek(entity));
+
+        alekTinker.setEnemy(alekEarthSpirit);
+        alekEarthSpirit.setEnemy(alekTinker);
+
+        while (aleks.size() > 1){
+            alekEarthSpirit.attack();
+            alekTinker.attack();
+
+            alekEarthSpirit.nextTurn();
+            alekTinker.nextTurn();
+
+            alekEarthSpirit.newTurn();
+            alekTinker.newTurn();
         }
+
+    }
+
+    public static void removeAlek(Entity alek){
+        for (var anotherAlek :
+                aleks) {
+            if (anotherAlek.getEnemy() == alek) {
+                anotherAlek.setEnemy(null);
+            }
+        }
+        alek.setEnemy(null);
+        aleks.remove(alek);
     }
 
     public static void newMessage(){
-        System.out.println(MessageBox.getInstance().getMessage().getText());
-
+        System.out.println(index + ". " + MessageBox.getInstance().getMessage().getText());
+        index++;
     }
 }
 /*

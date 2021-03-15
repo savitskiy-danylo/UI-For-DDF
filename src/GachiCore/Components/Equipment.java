@@ -4,6 +4,7 @@ import GachiCore.Entities.Base.Entity;
 
 public abstract class Equipment extends Item{
     private EquipmentType equipmentType;
+    private Quality quality;
 
     public Equipment(Entity owner, String name, String description, int purchasePrice, int sellingPrice, EquipmentType equipmentType) {
         super(owner, name, description, purchasePrice, sellingPrice);
@@ -19,5 +20,9 @@ public abstract class Equipment extends Item{
 
     public EquipmentType getEquipmentType() {
         return equipmentType;
+    }
+
+    public Quality getQuality() {
+        return quality;
     }
 }
