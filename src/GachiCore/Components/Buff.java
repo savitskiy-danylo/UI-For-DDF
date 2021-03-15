@@ -1,4 +1,6 @@
-package GachiCore;
+package GachiCore.Components;
+
+import GachiCore.Entities.Base.Entity;
 
 public abstract class Buff {
     protected String name, description;
@@ -44,7 +46,16 @@ public abstract class Buff {
     protected void takeOffEachAttack(){}
     protected void takeOffEachTurn(){}
 
+    public void removeBuff(){
+        takeOffOnce();
+        takeOffEachAttack();
+        takeOffEachTurn();
+        target.removeBuff(this);
+    }
 
+    public void addBuff(){
+        target.addBuff(this);
+    }
 
 
     public void setTarget(Entity target) {

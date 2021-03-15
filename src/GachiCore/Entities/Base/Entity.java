@@ -1,15 +1,21 @@
-package GachiCore;
+package GachiCore.Entities.Base;
+
+import GachiCore.Components.Buff;
+import GachiCore.Components.BuffRefreshType;
+import GachiCore.Components.Inventory;
+import GachiCore.Components.Stats;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Entity implements StatsInterface {
+public class Entity {
     private Entity enemy;
     protected Stats stats;
+    protected Inventory inventory;
 
-    private ArrayList<Buff> once = new ArrayList<>();
-    private ArrayList<Buff> eachAttack = new ArrayList<>();
-    private ArrayList<Buff> eachTurn = new ArrayList<>();
+    protected ArrayList<Buff> once;
+    protected ArrayList<Buff> eachAttack;
+    protected ArrayList<Buff> eachTurn;
 
     private Random random = new Random();
     private int additionalArmor = 0;
@@ -30,6 +36,11 @@ public class Entity implements StatsInterface {
         stats.minusArmor(additionalArmor);
         additionalArmor = 0;
         stats.addActionPoints(stats.getActionPointsMax());
+        beforeNewTurn();
+    }
+
+    public void beforeNewTurn(){
+
     }
 
     public void heal(int number){
@@ -77,18 +88,10 @@ public class Entity implements StatsInterface {
     }
 
     private void takeOnBuffs(BuffRefreshType refreshType, ArrayList<Buff> buffs){
-        for (var buff:
-                buffs
-        ) {
-            buff.takeOn(refreshType);
-        }
+        buffs.forEach((Buff buff) -> buff.takeOn(refreshType));
     }
     private void takeOffBuffs(BuffRefreshType refreshType, ArrayList<Buff> buffs){
-        for (var buff:
-                buffs
-        ) {
-            buff.takeOff(refreshType);
-        }
+        buffs.forEach((Buff buff) -> buff.takeOff(refreshType));
     }
 
     private void takeOnBuffsOnAttack(){
@@ -117,8 +120,18 @@ public class Entity implements StatsInterface {
     public Entity getEnemy() {
         return enemy;
     }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
     //endregion
     //region Setters
+
+    protected void setInventory(Inventory inventory) {
+        this.inventory = inventory;
+    }
+
     protected void setStats(Stats stats) {
         this.stats = stats;
     }

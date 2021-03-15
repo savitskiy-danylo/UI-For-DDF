@@ -1,4 +1,4 @@
-package GachiCore;
+package GachiCore.Components;
 
 import java.util.Random;
 
