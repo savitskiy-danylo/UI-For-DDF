@@ -1,7 +1,7 @@
 package GachiCore.Entities.Base;
 
-import GachiCore.Components.GachiPower;
-import GachiCore.Components.Inventory;
+import GachiCore.Components.Skills.Base.GachiPower;
+import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
 
 public class GachiPowerUser extends Entity {

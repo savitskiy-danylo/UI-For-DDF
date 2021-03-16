@@ -3,8 +3,8 @@ package GachiCore.Entities;
 import Controllers.MBox.Message;
 import Controllers.MBox.MessageBox;
 import Controllers.MBox.MessageType;
-import GachiCore.Components.GachiPower;
-import GachiCore.Components.Inventory;
+import GachiCore.Components.Skills.Base.GachiPower;
+import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
 import GachiCore.Entities.Base.GachiPowerUser;
 
@@ -16,7 +16,15 @@ public class Alek extends GachiPowerUser {
 
     public Alek(Stats stats, Inventory inventory, GachiPower gachiPower) {
         super(stats, inventory, gachiPower);
-        setName("Alek");
+    }
+
+    @Override
+    public void setName(String name) {
+        super.setName(name);
+        takeDamage = new Message(name + ". " + takeDamage.getText(), takeDamage.getMessageType());
+        died = new Message(name + ". " + died.getText(), died.getMessageType());
+        dodge = new Message(name + ". " + dodge.getText(), dodge.getMessageType());
+
     }
 
     @Override

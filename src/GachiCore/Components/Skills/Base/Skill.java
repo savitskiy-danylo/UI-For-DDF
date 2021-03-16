@@ -1,4 +1,4 @@
-package GachiCore.Components;
+package GachiCore.Components.Skills.Base;
 
 import GachiCore.Entities.Base.Entity;
 

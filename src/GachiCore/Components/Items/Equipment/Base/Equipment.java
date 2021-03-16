@@ -1,13 +1,15 @@
-package GachiCore.Components;
+package GachiCore.Components.Items.Equipment.Base;
 
+import GachiCore.Components.Buffs.Base.Buff;
+import GachiCore.Components.Items.Base.Item;
 import GachiCore.Entities.Base.Entity;
 
-public abstract class Equipment extends Item{
+public abstract class Equipment extends Item {
     private EquipmentType equipmentType;
     private Quality quality;
 
-    public Equipment(Entity owner, String name, String description, int purchasePrice, int sellingPrice, EquipmentType equipmentType) {
-        super(owner, name, description, purchasePrice, sellingPrice);
+    public Equipment(String name, String description, int purchasePrice, int sellingPrice, EquipmentType equipmentType) {
+        super(name, description, purchasePrice, sellingPrice);
         this.equipmentType = equipmentType;
     }
 

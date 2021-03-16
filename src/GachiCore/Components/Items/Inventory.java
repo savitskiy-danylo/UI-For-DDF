@@ -1,5 +1,9 @@
-package GachiCore.Components;
+package GachiCore.Components.Items;
 
+import GachiCore.Components.Items.Consumables.Base.Consumable;
+import GachiCore.Components.Items.Base.Item;
+import GachiCore.Components.Items.Equipment.Base.Equipment;
+import GachiCore.Components.Items.Equipment.Base.EquipmentType;
 import GachiCore.Entities.Base.Entity;
 
 import java.util.ArrayList;
@@ -14,6 +18,7 @@ public class Inventory {
     private int money;
 
     public void addItem(Item item){
+        item.setOwner(owner);
         Equipment equipment = (Equipment) item;
         if(equipment != null)
             equipments.add(equipment);
@@ -43,12 +48,15 @@ public class Inventory {
                 armor.takeOff();
             }
             armor = equipment;
-        }else {
+        }
+
+        if(equipment.getEquipmentType() == EquipmentType.WEAPON){
             if(weapon != null){
                 weapon.takeOff();
             }
             weapon = equipment;
         }
+
         equipment.takeOn();
     }
 

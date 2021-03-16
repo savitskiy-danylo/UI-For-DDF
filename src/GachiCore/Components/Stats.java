@@ -8,7 +8,7 @@ public class Stats {
     private final int strengthMaxBase;
 
 
-    private int damageMin, damageMax, priceOfAttack, priceOfAttackBase;
+    private int damageMin, damageMax, priceOfAttack, priceOfAttackBase, damageCurrent;
     private int strength, strengthMax, agility, agilityMax;
     private int armor, armorMultiplier;
     private int actionPointsCurrent, actionPointsMax;
@@ -25,6 +25,7 @@ public class Stats {
         this.damageBaseMax = damageBaseMax;
         damageMin = damageBaseMin;
         damageMax = damageBaseMax;
+        refreshDamageCurrent();
 
         this.strengthMaxBase = strengthMaxBase;
         strengthMax = strengthMaxBase;
@@ -35,6 +36,11 @@ public class Stats {
 
         this.agilityMax = agilityMax;
         this.armorMultiplier = armorMultiplier;
+    }
+
+    private void refreshDamageCurrent(){
+        damageCurrent = random.nextInt(damageMax - damageMin) + damageMin;
+
     }
 
     public void addPriceOfAttack(int number){
@@ -55,9 +61,14 @@ public class Stats {
         if(strengthMax < strengthMaxBase) strengthMax = strengthMaxBase;
     }
 
+    public void addCurrentDamage(int damage){
+        damageCurrent += damage;
+    }
+
     public void addDamage(int number){
         damageMin += number;
         damageMax += number;
+        refreshDamageCurrent();
     }
 
     public void minusDamage(int count){
@@ -65,6 +76,7 @@ public class Stats {
         damageMax -= count;
         if (damageMin < damageBaseMin) damageMin = damageBaseMin;
         if (damageMax < damageBaseMax) damageMax = damageBaseMax;
+        refreshDamageCurrent();
     }
 
     public void addArmor(int count){
@@ -157,7 +169,9 @@ public class Stats {
     }
 
     public int getDamageCurrent() {
-        return random.nextInt(damageBaseMax - damageMin) + damageBaseMin;
+        int data = damageCurrent;
+        refreshDamageCurrent();
+        return data;
     }
 
     public int getStrength() {

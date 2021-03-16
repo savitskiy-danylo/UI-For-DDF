@@ -1,4 +1,4 @@
-package GachiCore.Components;
+package GachiCore.Components.Buffs.Base;
 
 public enum BuffRefreshType {
     ONCE,

@@ -1,4 +1,4 @@
-package GachiCore.Components;
+package GachiCore.Components.Buffs.Base;
 
 import GachiCore.Entities.Base.Entity;
 
@@ -7,10 +7,6 @@ public abstract class Buff {
     protected boolean refreshOnce = false, refreshEachAttack = false, refreshEachTurn = false;
 
     protected Entity target;
-
-    public Buff(Entity target){
-        this.target = target;
-    }
 
     public boolean isBuff(BuffRefreshType refreshType){
         boolean answer = false;

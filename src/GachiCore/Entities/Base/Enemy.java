@@ -1,6 +1,6 @@
 package GachiCore.Entities.Base;
 
-import GachiCore.Components.Inventory;
+import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
 
 public class Enemy extends Entity{

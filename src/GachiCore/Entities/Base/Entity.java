@@ -1,8 +1,8 @@
 package GachiCore.Entities.Base;
 
-import GachiCore.Components.Buff;
-import GachiCore.Components.BuffRefreshType;
-import GachiCore.Components.Inventory;
+import GachiCore.Components.Buffs.Base.Buff;
+import GachiCore.Components.Buffs.Base.BuffRefreshType;
+import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
 
 import java.util.ArrayList;
@@ -165,7 +165,7 @@ public abstract class Entity {
     //endregion
     //region Setters
 
-    protected void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 

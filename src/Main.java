@@ -1,10 +1,11 @@
 import Controllers.MBox.MessageBox;
 import Core.*;
-import Core.Components.LatexCostume;
 import Core.Components.Base.Usable.Equipment;
 import Core.Components.Butterfly;
 import Core.Components.Lash;
 import Core.Player;
+import GachiCore.Components.Items.Equipment.BrokenSword;
+import GachiCore.Components.Items.Equipment.LatexCostume;
 import GachiCore.Entities.Alek;
 import GachiCore.Entities.AlekBuilder;
 import GachiCore.Entities.Base.Entity;
@@ -21,13 +22,21 @@ public class Main {
         MessageBox.getInstance().addNewMessageEventListener(() -> newMessage());
         AlekBuilder entityBuilder = new AlekBuilder();
 
-        Alek alekTinker = entityBuilder.build();
+        Alek alekTinker = entityBuilder.build("Alek Tinker");
         aleks.add(alekTinker);
         alekTinker.addActionAfterDeath((Entity entity) -> removeAlek(entity));
 
-        Alek alekEarthSpirit = entityBuilder.build();
+        LatexCostume latexCostume = new LatexCostume();
+        alekTinker.getInventory().addItem(latexCostume);
+        alekTinker.getInventory().takeOn(latexCostume);
+
+        Alek alekEarthSpirit = entityBuilder.build("Alek Earth Spirit");
         aleks.add(alekEarthSpirit);
         alekEarthSpirit.addActionAfterDeath((Entity entity) -> removeAlek(entity));
+
+        BrokenSword brokenSword = new BrokenSword();
+        alekEarthSpirit.getInventory().addItem(brokenSword);
+        alekEarthSpirit.getInventory().takeOn(brokenSword);
 
         alekTinker.setEnemy(alekEarthSpirit);
         alekEarthSpirit.setEnemy(alekTinker);
