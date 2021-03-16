@@ -1,6 +1,7 @@
 import Controllers.MBox.MessageBox;
 
 import GachiCore.Components.Items.Consumables.BottleOfSemen;
+import GachiCore.Components.Items.Consumables.Grease;
 import GachiCore.Components.Items.Equipment.BrokenSword;
 import GachiCore.Components.Items.Equipment.LatexCostume;
 import GachiCore.Entities.Alek;
@@ -30,12 +31,16 @@ public class Main {
 
         BrokenSword brokenSword = new BrokenSword();
         BottleOfSemen bottleOfSemen = new BottleOfSemen();
+        Grease grease = new Grease();
         alekEarthSpirit.getInventory().addItem(brokenSword);
         alekEarthSpirit.getInventory().addItem(bottleOfSemen);
         alekEarthSpirit.getInventory().takeOn(brokenSword);
+        alekEarthSpirit.getInventory().addItem(grease);
+
 
         alekTinker.setEnemy(alekEarthSpirit);
         alekEarthSpirit.setEnemy(alekTinker);
+        alekEarthSpirit.getInventory().use(grease);
 
         while (aleks.size() > 1){
             if(alekEarthSpirit.getStats().getStrength() < 30 && alekEarthSpirit.getInventory().have(bottleOfSemen))
