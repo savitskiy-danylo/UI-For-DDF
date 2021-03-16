@@ -4,6 +4,7 @@ import GachiCore.Components.Items.Consumables.BottleOfSemen;
 import GachiCore.Components.Items.Consumables.Grease;
 import GachiCore.Components.Items.Equipment.BrokenSword;
 import GachiCore.Components.Items.Equipment.LatexCostume;
+import GachiCore.Components.Skills.TurnAround;
 import GachiCore.Entities.Alek;
 import GachiCore.Entities.AlekBuilder;
 import GachiCore.Entities.Base.Entity;
@@ -25,6 +26,9 @@ public class Main {
         alekTinker.getInventory().addItem(latexCostume);
         alekTinker.getInventory().takeOn(latexCostume);
 
+        TurnAround turnAround = new TurnAround();
+        alekTinker.getGachiPower().addSkill(turnAround);
+
         Alek alekEarthSpirit = entityBuilder.build("Alek Earth Spirit");
         aleks.add(alekEarthSpirit);
         alekEarthSpirit.addActionAfterDeath((Entity entity) -> removeAlek(entity));
@@ -45,8 +49,11 @@ public class Main {
         while (aleks.size() > 1){
             if(alekEarthSpirit.getStats().getStrength() < 30 && alekEarthSpirit.getInventory().have(bottleOfSemen))
                 alekEarthSpirit.getInventory().use(bottleOfSemen);
+
             alekEarthSpirit.attack();
             alekTinker.attack();
+
+            alekTinker.getGachiPower().use(turnAround);
 
             alekEarthSpirit.nextTurn();
             alekTinker.nextTurn();

@@ -1,10 +1,11 @@
 package GachiCore.Components.Skills.Base;
 
 import GachiCore.Entities.Base.Entity;
+import GachiCore.Entities.Base.GachiPowerUser;
 
 public abstract class Skill {
 
-    private Entity user;
+    protected GachiPowerUser user;
     private String name, description;
     private int price;
 
@@ -14,7 +15,7 @@ public abstract class Skill {
         this.price = price;
     }
 
-    public void setUser(Entity user) {
+    public void setUser(GachiPowerUser user) {
         this.user = user;
     }
 
@@ -29,6 +30,8 @@ public abstract class Skill {
     public int getPrice() {
         return price;
     }
-
+    public boolean canUse(){
+        return user.getGachiPower().isEnoughGachiPower(price);
+    }
     public abstract void use();
 }
