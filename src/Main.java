@@ -1,19 +1,13 @@
 import Controllers.MBox.MessageBox;
-import Core.*;
-import Core.Components.Base.Usable.Equipment;
-import Core.Components.Butterfly;
-import Core.Components.Lash;
-import Core.Player;
+
+import GachiCore.Components.Items.Consumables.BottleOfSemen;
 import GachiCore.Components.Items.Equipment.BrokenSword;
 import GachiCore.Components.Items.Equipment.LatexCostume;
 import GachiCore.Entities.Alek;
 import GachiCore.Entities.AlekBuilder;
 import GachiCore.Entities.Base.Entity;
-import GachiCore.Entities.EntityBuilder;
 
 import java.util.ArrayList;
-
-import static org.fusesource.jansi.Ansi.ansi;
 
 public class Main {
     private static ArrayList<Entity> aleks = new ArrayList<>();
@@ -35,13 +29,17 @@ public class Main {
         alekEarthSpirit.addActionAfterDeath((Entity entity) -> removeAlek(entity));
 
         BrokenSword brokenSword = new BrokenSword();
+        BottleOfSemen bottleOfSemen = new BottleOfSemen();
         alekEarthSpirit.getInventory().addItem(brokenSword);
+        alekEarthSpirit.getInventory().addItem(bottleOfSemen);
         alekEarthSpirit.getInventory().takeOn(brokenSword);
 
         alekTinker.setEnemy(alekEarthSpirit);
         alekEarthSpirit.setEnemy(alekTinker);
 
         while (aleks.size() > 1){
+            if(alekEarthSpirit.getStats().getStrength() < 30 && alekEarthSpirit.getInventory().have(bottleOfSemen))
+                alekEarthSpirit.getInventory().use(bottleOfSemen);
             alekEarthSpirit.attack();
             alekTinker.attack();
 

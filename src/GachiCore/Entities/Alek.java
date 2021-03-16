@@ -13,9 +13,16 @@ public class Alek extends GachiPowerUser {
     private Message takeDamage = new Message("I'm fucking cumming ", MessageType.NEGATIVE);
     private Message died = new Message("Slap", MessageType.NEGATIVE);
     private Message dodge = new Message("Successful dodge", MessageType.POSITIVE);
+    private Message heal = new Message(" healed on ", MessageType.POSITIVE);
 
     public Alek(Stats stats, Inventory inventory, GachiPower gachiPower) {
         super(stats, inventory, gachiPower);
+    }
+
+    @Override
+    public void heal(int number) {
+        super.heal(number);
+        messageBox.addNewMessage(addInformation(heal, number));
     }
 
     @Override
@@ -24,6 +31,7 @@ public class Alek extends GachiPowerUser {
         takeDamage = new Message(name + ". " + takeDamage.getText(), takeDamage.getMessageType());
         died = new Message(name + ". " + died.getText(), died.getMessageType());
         dodge = new Message(name + ". " + dodge.getText(), dodge.getMessageType());
+        heal = new Message(name + heal.getText(), heal.getMessageType());
 
     }
 

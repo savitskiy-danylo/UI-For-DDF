@@ -19,26 +19,22 @@ public class Inventory {
 
     public void addItem(Item item){
         item.setOwner(owner);
-        Equipment equipment = (Equipment) item;
-        if(equipment != null)
-            equipments.add(equipment);
+        if(item instanceof Equipment)
+            equipments.add((Equipment) item);
         else
         {
-            Consumable consumable = (Consumable) item;
-            if(consumable != null)
-                consumables.add(consumable);
+            if(item instanceof Consumable)
+                consumables.add((Consumable) item);
          }
     }
 
     public void removeItem(Item item){
-        Equipment equipment = (Equipment) item;
-        if(equipment != null && equipments.contains(equipment))
-            equipments.remove(equipment);
+        if(item instanceof Equipment && equipments.contains((Equipment) item))
+            equipments.remove((Equipment) item);
         else
         {
-            Consumable consumable = (Consumable) item;
-            if(consumable != null && consumables.contains(consumable))
-                consumables.remove(consumable);
+            if(item instanceof Consumable && consumables.contains((Consumable) item))
+                consumables.remove((Consumable) item);
         }
     }
 
@@ -58,6 +54,16 @@ public class Inventory {
         }
 
         equipment.takeOn();
+    }
+
+    public void use(Consumable consumable){
+        consumable.use();
+    }
+
+    public boolean have(Item item){
+        boolean equipmentItem = equipments.contains(item);
+        boolean consumableItem = consumables.contains(item);
+        return equipmentItem || consumableItem;
     }
 
     public void takeOff(Equipment equipment){
