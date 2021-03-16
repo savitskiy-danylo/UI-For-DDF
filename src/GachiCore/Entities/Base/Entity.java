@@ -16,6 +16,9 @@ public abstract class Entity {
     protected Stats stats;
     protected Inventory inventory;
 
+    private boolean needRemove = false;
+    protected ArrayList<Buff> removeList = new ArrayList<>();
+
     protected ArrayList<Buff> once = new ArrayList<>();
     protected ArrayList<Buff> eachAttack = new ArrayList<>();
     protected ArrayList<Buff> eachTurn = new ArrayList<>();
@@ -106,6 +109,16 @@ public abstract class Entity {
     }
 
     public void removeBuff(Buff buff){
+        removeList.add(buff);
+        needRemove = true;
+    }
+
+    private void refreshBuffs(){
+        removeList.forEach((Buff buff) -> removeBuffFromList(buff));
+        removeList.clear();
+    }
+
+    private void removeBuffFromList(Buff buff){
         if(once.contains(buff)) once.remove(buff);
         if(eachAttack.contains(buff)) eachAttack.remove(buff);
         if(eachTurn.contains(buff)) eachTurn.remove(buff);
@@ -117,9 +130,17 @@ public abstract class Entity {
     }
 
     private void takeOnBuffs(BuffRefreshType refreshType, ArrayList<Buff> buffs){
+        if(needRemove) {
+            refreshBuffs();
+            needRemove = false;
+        }
         buffs.forEach((Buff buff) -> buff.takeOn(refreshType));
     }
     private void takeOffBuffs(BuffRefreshType refreshType, ArrayList<Buff> buffs){
+        if(needRemove) {
+            refreshBuffs();
+            needRemove = false;
+        }
         buffs.forEach((Buff buff) -> buff.takeOff(refreshType));
     }
 

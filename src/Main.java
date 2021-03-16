@@ -37,10 +37,10 @@ public class Main {
         alekEarthSpirit.getInventory().takeOn(brokenSword);
         alekEarthSpirit.getInventory().addItem(grease);
 
+        alekEarthSpirit.getInventory().use(grease);
 
         alekTinker.setEnemy(alekEarthSpirit);
         alekEarthSpirit.setEnemy(alekTinker);
-        alekEarthSpirit.getInventory().use(grease);
 
         while (aleks.size() > 1){
             if(alekEarthSpirit.getStats().getStrength() < 30 && alekEarthSpirit.getInventory().have(bottleOfSemen))

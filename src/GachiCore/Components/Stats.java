@@ -148,14 +148,6 @@ public class Stats {
         return strengthMax;
     }
 
-    public int getDamageBaseMin() {
-        return damageBaseMin;
-    }
-
-    public int getDamageBaseMax() {
-        return damageBaseMax;
-    }
-
     public int getActionPointsBase() {
         return actionPointsBase;
     }

@@ -96,6 +96,16 @@ public class Inventory {
     }
 
     //region Getters
+
+
+    public ArrayList<Equipment> getEquipments() {
+        return equipments;
+    }
+
+    public ArrayList<Consumable> getConsumables() {
+        return consumables;
+    }
+
     public int getMoney() {
         return money;
     }
