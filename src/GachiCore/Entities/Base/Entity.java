@@ -3,6 +3,7 @@ package GachiCore.Entities.Base;
 import GachiCore.Components.Buffs.Base.Buff;
 import GachiCore.Components.Buffs.Base.BuffRefreshType;
 import GachiCore.Components.Items.Inventory;
+import GachiCore.Components.Messenger;
 import GachiCore.Components.Stats;
 
 import java.util.ArrayList;
@@ -13,8 +14,10 @@ public abstract class Entity {
     private String name, description;
 
     private Entity enemy;
+
     protected Stats stats;
     protected Inventory inventory;
+    protected Messenger messenger;
 
     private boolean needRemove = false;
     protected ArrayList<Buff> removeList = new ArrayList<>();
@@ -59,6 +62,7 @@ public abstract class Entity {
 
     public void heal(int number){
         stats.addStrength(number);
+        messenger.sendHeal(number);
     }
 
     public void attack(){
@@ -76,10 +80,17 @@ public abstract class Entity {
     public void afterAttack(int damage){}
 
     public void takeDamage(int damage){
-        if(tryDodge()) return;
+        if(tryDodge()) {
+            messenger.sendDodge();
+            return;
+        }
         int pureDamage = persist(damage);
         stats.minusStrength(pureDamage);
-        if(!isAlive()) death();
+        messenger.sendTakeDamage(pureDamage);
+        if(!isAlive()) {
+            messenger.sendDeath();
+            death();
+        }
     }
 
     protected void death(){
@@ -101,7 +112,6 @@ public abstract class Entity {
     }
 
     public void addBuff(Buff buff){
-        buff.setTarget(this);
         if(buff.isBuff(BuffRefreshType.ONCE)) addOnceBuff(buff);
         if(buff.isBuff(BuffRefreshType.EACH_ATTACK)) eachAttack.add(buff);
         if(buff.isBuff(BuffRefreshType.EACH_TURN)) eachTurn.add(buff);
@@ -185,6 +195,10 @@ public abstract class Entity {
 
     //endregion
     //region Setters
+
+    public void setMessenger(Messenger messenger) {
+        this.messenger = messenger;
+    }
 
     public void setName(String name) {
         this.name = name;

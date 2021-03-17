@@ -1,13 +1,14 @@
 import Controllers.MBox.MessageBox;
 
-import GachiCore.Components.Items.Consumables.BottleOfSemen;
-import GachiCore.Components.Items.Consumables.Grease;
+import GachiCore.AI.AIUser;
+import GachiCore.Builders.Base.AIBuilder;
+import GachiCore.Builders.Base.PlayerBuilder;
+import GachiCore.Builders.HeterosexualBuilder;
+import GachiCore.Builders.PoidaBuilder;
 import GachiCore.Components.Items.Equipment.BrokenSword;
-import GachiCore.Components.Items.Equipment.LatexCostume;
-import GachiCore.Components.Skills.TurnAround;
-import GachiCore.Entities.Alek;
-import GachiCore.Entities.AlekBuilder;
 import GachiCore.Entities.Base.Entity;
+import GachiCore.Entities.Base.GachiPowerUser;
+import GachiCore.GameHandlers.FloorEnemies;
 
 import java.util.ArrayList;
 
@@ -16,64 +17,45 @@ public class Main {
     private static int index = 1;
     public static void main(String[] args){
         MessageBox.getInstance().addNewMessageEventListener(() -> newMessage());
-        AlekBuilder entityBuilder = new AlekBuilder();
-
-        Alek alekTinker = entityBuilder.build("Alek Tinker");
-        aleks.add(alekTinker);
-        alekTinker.addActionAfterDeath((Entity entity) -> removeAlek(entity));
-
-        LatexCostume latexCostume = new LatexCostume();
-        alekTinker.getInventory().addItem(latexCostume);
-        alekTinker.getInventory().takeOn(latexCostume);
-
-        TurnAround turnAround = new TurnAround();
-        alekTinker.getGachiPower().addSkill(turnAround);
-
-        Alek alekEarthSpirit = entityBuilder.build("Alek Earth Spirit");
-        aleks.add(alekEarthSpirit);
-        alekEarthSpirit.addActionAfterDeath((Entity entity) -> removeAlek(entity));
-
+        PlayerBuilder player = new PoidaBuilder();
+        GachiPowerUser gpUser = player.build();
+        gpUser.addActionAfterDeath(Main::end);
         BrokenSword brokenSword = new BrokenSword();
-        BottleOfSemen bottleOfSemen = new BottleOfSemen();
-        Grease grease = new Grease();
-        alekEarthSpirit.getInventory().addItem(brokenSword);
-        alekEarthSpirit.getInventory().addItem(bottleOfSemen);
-        alekEarthSpirit.getInventory().takeOn(brokenSword);
-        alekEarthSpirit.getInventory().addItem(grease);
+        gpUser.getInventory().addItem(brokenSword);
+        //gpUser.getInventory().takeOn(brokenSword);
 
-        alekEarthSpirit.getInventory().use(grease);
+        AIBuilder ai = new HeterosexualBuilder();
 
-        alekTinker.setEnemy(alekEarthSpirit);
-        alekEarthSpirit.setEnemy(alekTinker);
-
-        while (aleks.size() > 1){
-            if(alekEarthSpirit.getStats().getStrength() < 30 && alekEarthSpirit.getInventory().have(bottleOfSemen))
-                alekEarthSpirit.getInventory().use(bottleOfSemen);
-
-            alekEarthSpirit.attack();
-            alekTinker.attack();
-
-            alekTinker.getGachiPower().use(turnAround);
-
-            alekEarthSpirit.nextTurn();
-            alekTinker.nextTurn();
-
-            alekEarthSpirit.newTurn();
-            alekTinker.newTurn();
+        ArrayList<AIUser> aiUsers = new ArrayList<>();
+        for (int index = 0; index < 5; index++){
+            aiUsers.add(ai.build(gpUser));
         }
+        FloorEnemies firstFloor = new FloorEnemies(gpUser, aiUsers.toArray(new AIUser[aiUsers.size()]));
+        firstFloor.addActionAfterDefeat(Main::end);
+        while (gpUser.isAlive() && !firstFloor.isClear()){
+            gpUser.attack();
+            gpUser.attack();
+            gpUser.attack();
+            gpUser.attack();
+            gpUser.nextTurn();
 
+            firstFloor.turn();
+            firstFloor.nextTurn();
+
+            gpUser.newTurn();
+            firstFloor.newTurn();
+        }
     }
 
-    public static void removeAlek(Entity alek){
-        for (var anotherAlek :
-                aleks) {
-            if (anotherAlek.getEnemy() == alek) {
-                anotherAlek.setEnemy(null);
-            }
-        }
-        alek.setEnemy(null);
-        aleks.remove(alek);
+    public static void end(){
+        System.exit(0);
     }
+
+    public static void end(Entity entity){
+        System.out.println(entity.getName() + " died.");
+        System.exit(0);
+    }
+
 
     public static void newMessage(){
         System.out.println(index + ". " + MessageBox.getInstance().getMessage().getText());

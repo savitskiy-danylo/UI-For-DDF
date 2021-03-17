@@ -89,6 +89,7 @@ public class Stats {
 
     public void addStrength(int number){
         strength += number;
+        if(strength > strengthMax) strength = strengthMax;
     }
 
     public void minusStrength(int number){
