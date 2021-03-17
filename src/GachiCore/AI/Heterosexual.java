@@ -26,7 +26,7 @@ public class Heterosexual extends Enemy implements AIUser {
     }
 
     @Override
-    public boolean wantSkip() {
+    public boolean wantAgreeWithSwap() {
         return true;
     }
 }

@@ -82,7 +82,7 @@ public class FloorEnemies {
             refresh();
         }
         if( bots.size() >= 2){
-            botHandler(bots.get(0).wantSwap(), bots.get(1).wantSkip());
+            botHandler(bots.get(0).wantSwap(), bots.get(1).wantAgreeWithSwap());
         }
         for (AIUser bot : bots) {
             if(!hero.isAlive()) return;

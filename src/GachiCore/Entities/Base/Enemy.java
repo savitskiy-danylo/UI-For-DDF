@@ -14,6 +14,10 @@ public class Enemy extends Entity{
         this.isRange = isRange;
     }
 
+    public void setRange(boolean range) {
+        isRange = range;
+    }
+
     @Override
     public void attack() {
         if(!canAttack()) return;

@@ -3,6 +3,7 @@ package GachiCore.GameHandlers.Floors;
 import GachiCore.AI.AIUser;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.HeterosexualBuilder;
+import GachiCore.Builders.SkeletonBuilder;
 import GachiCore.Components.Items.Equipment.BrokenSword;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Entities.Base.Entity;
@@ -19,7 +20,7 @@ public class FirstFloorLeft implements FloorBuilder {
 
     @Override
     public Floor getFloor() {
-        AIBuilder builder = new HeterosexualBuilder();
+        AIBuilder builder = new SkeletonBuilder();
         ArrayList<AIUser> bots = new ArrayList<>();
         for (int index = 0; index < 5; index++){
             bots.add(builder.build(gachiHandler.getHero()));

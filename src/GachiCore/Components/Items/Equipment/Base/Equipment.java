@@ -27,4 +27,8 @@ public abstract class Equipment extends Item {
     public Quality getQuality() {
         return quality;
     }
+
+    protected void setQuality(Quality quality) {
+        this.quality = quality;
+    }
 }

@@ -64,6 +64,10 @@ public class Stats {
     public void addCurrentDamage(int damage){
         damageCurrent += damage;
     }
+    public void minusCurrentDamage(int damage){
+        damageCurrent -= damage;
+        if (damageCurrent < 0) damageCurrent = 0;
+    }
 
     public void addDamage(int number){
         damageMin += number;
