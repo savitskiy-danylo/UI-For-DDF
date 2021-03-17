@@ -1,6 +1,7 @@
 package GachiCore.GameHandlers;
 
 import GachiCore.AI.AIUser;
+import GachiCore.Components.Items.Inventory;
 import GachiCore.Entities.Base.Entity;
 import GachiCore.Entities.Base.GachiPowerUser;
 
@@ -10,6 +11,8 @@ import java.util.Arrays;
 public class FloorEnemies {
     private ArrayList<AIUser> bots = new ArrayList<>();
     private ArrayList<AIUser> aiForRemove = new ArrayList<>();
+    private ArrayList<Inventory> inventories = new ArrayList<>();
+    private int money = 0;
     private GachiPowerUser hero;
     private boolean needRefresh = false;
     private Runnable actionAfterDeath;
@@ -18,6 +21,8 @@ public class FloorEnemies {
         Arrays.stream(aiUsers).forEach((AIUser bot) -> addBot(bot));
         for (AIUser user : bots) {
             ((Entity) user).addActionAfterDeath((Entity entity) -> removeBot(user));
+            inventories.add(((Entity) user).getInventory());
+            money += ((Entity) user).getInventory().getMoney();
         }
         bots.get(0).setVanguard(true);
         gachiPowerUser.setEnemy((Entity) bots.get(0));
@@ -104,5 +109,13 @@ public class FloorEnemies {
 
     public boolean isClear(){
         return bots.isEmpty();
+    }
+
+    public ArrayList<Inventory> getInventories() {
+        return inventories;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }
