@@ -93,6 +93,8 @@ public class Inventory {
 
     public void setOwner(Entity owner) {
         this.owner = owner;
+        equipments.forEach((Equipment equip) -> equip.setOwner(owner));
+        consumables.forEach((Consumable consumable) -> consumable.setOwner(owner));
     }
 
     //region Getters

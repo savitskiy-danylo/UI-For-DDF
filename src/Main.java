@@ -5,10 +5,12 @@ import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.PlayerBuilder;
 import GachiCore.Builders.HeterosexualBuilder;
 import GachiCore.Builders.PoidaBuilder;
+import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.Equipment.BrokenSword;
 import GachiCore.Entities.Base.Entity;
 import GachiCore.Entities.Base.GachiPowerUser;
 import GachiCore.GameHandlers.FloorEnemies;
+import GachiCore.GameHandlers.GachiHandler;
 
 import java.util.ArrayList;
 
@@ -20,31 +22,25 @@ public class Main {
         PlayerBuilder player = new PoidaBuilder();
         GachiPowerUser gpUser = player.build();
         gpUser.addActionAfterDeath(Main::end);
-        BrokenSword brokenSword = new BrokenSword();
-        gpUser.getInventory().addItem(brokenSword);
-        //gpUser.getInventory().takeOn(brokenSword);
 
-        AIBuilder ai = new HeterosexualBuilder();
-
-        ArrayList<AIUser> aiUsers = new ArrayList<>();
-        for (int index = 0; index < 5; index++){
-            aiUsers.add(ai.build(gpUser));
+        GachiHandler gachiHandler = GachiHandler.getInstance();
+        gachiHandler.setHero(gpUser);
+        gachiHandler.leftSide();
+        while (!gachiHandler.floorIsClear() && gpUser.isAlive()) {
+            gpUser.attack();
+            gpUser.attack();
+            gpUser.attack();
+            gpUser.attack();
+            gachiHandler.nextTurn();
         }
-        FloorEnemies firstFloor = new FloorEnemies(gpUser, aiUsers.toArray(new AIUser[aiUsers.size()]));
-        firstFloor.addActionAfterDefeat(Main::end);
-        while (gpUser.isAlive() && !firstFloor.isClear()){
-            gpUser.attack();
-            gpUser.attack();
-            gpUser.attack();
-            gpUser.attack();
-            gpUser.nextTurn();
+        printGpUser(gpUser);
 
-            firstFloor.turn();
-            firstFloor.nextTurn();
+    }
 
-            gpUser.newTurn();
-            firstFloor.newTurn();
-        }
+    public static void printGpUser(GachiPowerUser gachiPowerUser){
+        System.out.println(gachiPowerUser.getName() + " won!");
+        System.out.println("Money: " + gachiPowerUser.getInventory().getMoney());
+        gachiPowerUser.getInventory().getEquipments().forEach((Equipment equip) -> System.out.println("Item: " + equip.getName()));
     }
 
     public static void end(){

@@ -1,6 +1,8 @@
 package GachiCore.GameHandlers;
 
 import GachiCore.AI.AIUser;
+import GachiCore.Components.Items.Consumables.Base.Consumable;
+import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Entities.Base.Entity;
 import GachiCore.Entities.Base.GachiPowerUser;
@@ -12,17 +14,15 @@ public class FloorEnemies {
     private ArrayList<AIUser> bots = new ArrayList<>();
     private ArrayList<AIUser> aiForRemove = new ArrayList<>();
     private ArrayList<Inventory> inventories = new ArrayList<>();
-    private int money = 0;
     private GachiPowerUser hero;
     private boolean needRefresh = false;
-    private Runnable actionAfterDeath;
+
     public FloorEnemies(GachiPowerUser gachiPowerUser, AIUser... aiUsers) {
         hero = gachiPowerUser;
         Arrays.stream(aiUsers).forEach((AIUser bot) -> addBot(bot));
         for (AIUser user : bots) {
             ((Entity) user).addActionAfterDeath((Entity entity) -> removeBot(user));
             inventories.add(((Entity) user).getInventory());
-            money += ((Entity) user).getInventory().getMoney();
         }
         bots.get(0).setVanguard(true);
         gachiPowerUser.setEnemy((Entity) bots.get(0));
@@ -48,14 +48,16 @@ public class FloorEnemies {
                 return;
             }
         }
-        actionAfterDeath.run();
     }
 
     public void newTurn(){
+        if(isClear()) {
+            end();
+            return;
+        }
         if(needRefresh){
             refresh();
         }
-        if(isClear()) actionAfterDeath.run();
         bots.forEach((AIUser bot) -> bot.newTurn());
     }
 
@@ -64,12 +66,18 @@ public class FloorEnemies {
             bots.remove(user);
         }
         aiForRemove.clear();
-        if(isClear()) actionAfterDeath.run();
+        if(isClear()) {
+            end();
+            return;
+        }
         hero.setEnemy((Entity) bots.get(0));
     }
 
     public void turn(){
-        if(isClear()) actionAfterDeath.run();
+        if(isClear()) {
+            end();
+            return;
+        }
         if(needRefresh){
             refresh();
         }
@@ -83,7 +91,11 @@ public class FloorEnemies {
     }
 
     public void nextTurn(){
-        if(isClear()) actionAfterDeath.run();
+        if(isClear()) {
+            end();
+            return;
+        }
+
         if(needRefresh){
             refresh();
         }
@@ -103,19 +115,16 @@ public class FloorEnemies {
         }
     }
 
-    public void addActionAfterDefeat(Runnable run){
-        actionAfterDeath = run;
-    }
-
     public boolean isClear(){
         return bots.isEmpty();
     }
 
-    public ArrayList<Inventory> getInventories() {
-        return inventories;
-    }
-
-    public int getMoney() {
-        return money;
+    public void end(){
+        for (Inventory inventory : inventories) {
+            inventory.setOwner(hero);
+            inventory.getEquipments().forEach((Equipment equip) -> hero.getInventory().addItem(equip));
+            inventory.getConsumables().forEach((Consumable consumable) -> hero.getInventory().addItem(consumable));
+            hero.getInventory().addMoney(inventory.getMoney());
+        }
     }
 }

@@ -15,7 +15,7 @@ public class Heterosexual extends Enemy implements AIUser {
 
     @Override
     public void turn() {
-        while (getStats().isEnoughActionPoints(getStats().getPriceOfAttack())){
+        while (getStats().isEnoughActionPoints(getStats().getPriceOfAttack()) && canAttack()){
             attack();
         }
     }

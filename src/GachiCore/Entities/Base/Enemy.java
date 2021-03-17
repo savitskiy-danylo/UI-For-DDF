@@ -16,8 +16,12 @@ public class Enemy extends Entity{
 
     @Override
     public void attack() {
-        if(!isVanguard && !isRange) return;
+        if(!canAttack()) return;
         super.attack();
+    }
+
+    public boolean canAttack(){
+        return isVanguard || isRange;
     }
 
     public boolean isRange() {
