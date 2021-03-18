@@ -17,9 +17,10 @@ public class SkeletonBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         Skeleton skeleton = new Skeleton(stats, inventory,true);
         Bow bow = new Bow();
+        setName("Skeleton");
+        skeleton.setName("Skeleton ");
         inventory.addItem(bow);
         inventory.takeOn(bow);
-        setName("Skeleton");
         skeleton.setMessenger(messenger);
         skeleton.setEnemy(enemy);
         return skeleton;

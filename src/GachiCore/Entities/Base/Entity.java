@@ -112,6 +112,7 @@ public abstract class Entity {
     }
 
     public void addBuff(Buff buff){
+        buff.setTarget(this);
         if(buff.isBuff(BuffRefreshType.ONCE)) addOnceBuff(buff);
         if(buff.isBuff(BuffRefreshType.EACH_ATTACK)) eachAttack.add(buff);
         if(buff.isBuff(BuffRefreshType.EACH_TURN)) eachTurn.add(buff);
