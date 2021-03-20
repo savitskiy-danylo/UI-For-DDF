@@ -1,26 +1,40 @@
-import UI.Components.Borders;
-import UI.Components.Builders.Interfaces.ViewBuilder;
-import UI.Components.Builders.Realizations.BiosView;
-import UI.Components.Builders.Realizations.SimpleView;
-import UI.Components.View;
-import org.fusesource.jansi.Ansi;
+
+import UI.Controls.Base.Container;
+import UI.Controls.HorizontalStackPanel;
+import UI.Controls.Label;
+import UI.Controls.VerticalStackPanel;
 import org.fusesource.jansi.AnsiConsole;
 
 import java.util.Scanner;
 
-import static org.fusesource.jansi.Ansi.ansi;
 
 public class Main {
     public static void main(String[] args){
         AnsiConsole.systemInstall();
-        System.out.print(ansi().eraseScreen());
-        ViewBuilder viewBuilder = new BiosView();
-        View view = viewBuilder.build("Button");
-        view.draw();
+        Container floor = new VerticalStackPanel();
+
+        Container mainPart = new VerticalStackPanel();
+        Label inventory = new Label();
+        inventory.setText("Inventory");
+        Label shop = new Label();
+        shop.setText("Shop");
+        mainPart.addControl(inventory);
+        mainPart.addControl(shop);
+
+        Container level = new HorizontalStackPanel();
+        Label left = new Label();
+        left.setText("Left");
+        Label right = new Label();
+        right.setText("Right");
+        level.addControl(left);
+        level.addControl(right);
+
+        floor.addControl(mainPart);
+        floor.addControl(level);
+
+        floor.draw();
+
         new Scanner(System.in).nextLine();
         AnsiConsole.systemUninstall();
     }
 }
-/*
-
-* */
