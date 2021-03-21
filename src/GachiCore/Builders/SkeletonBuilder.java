@@ -12,8 +12,8 @@ import GachiCore.Entities.Base.Entity;
 public class SkeletonBuilder extends AiBase implements AIBuilder {
     @Override
     public AIUser build(Entity enemy) {
-        Stats stats = new Stats(6, 10, 2,
-                19, 2, 80, 2);
+        Stats stats = new Stats(10, 12, 2,
+                11, 2, 80, 2);
         Inventory inventory = new Inventory();
         Skeleton skeleton = new Skeleton(stats, inventory,true);
         Bow bow = new Bow();

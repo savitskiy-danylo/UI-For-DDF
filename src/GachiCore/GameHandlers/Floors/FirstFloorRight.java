@@ -2,7 +2,6 @@ package GachiCore.GameHandlers.Floors;
 
 import GachiCore.AI.AIUser;
 import GachiCore.Builders.Base.AIBuilder;
-import GachiCore.Builders.HeterosexualBuilder;
 import GachiCore.GameHandlers.Floor;
 import GachiCore.GameHandlers.FloorEnemies;
 import GachiCore.GameHandlers.Floors.Base.FloorBuilder;

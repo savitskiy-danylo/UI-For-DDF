@@ -2,11 +2,8 @@ package GachiCore.GameHandlers.Floors;
 
 import GachiCore.AI.AIUser;
 import GachiCore.Builders.Base.AIBuilder;
-import GachiCore.Builders.Base.SlaveBuilder;
-import GachiCore.Builders.HeterosexualBuilder;
-import GachiCore.Builders.SkeletonBuilder;
+import GachiCore.Builders.SlaveBuilder;
 import GachiCore.Components.Items.Equipment.BrokenSword;
-import GachiCore.Components.Items.Inventory;
 import GachiCore.Entities.Base.Entity;
 import GachiCore.GameHandlers.Floor;
 import GachiCore.GameHandlers.FloorEnemies;
