@@ -3,6 +3,7 @@ package UI.Scenes.Base;
 import UI.Actions;
 import UI.Controls.Base.Control;
 import UI.Controls.Base.InteractiveControl;
+import UI.Controls.CommandLine;
 import UI.Controls.Container;
 
 import java.util.ArrayList;
@@ -13,12 +14,15 @@ import static org.fusesource.jansi.Ansi.ansi;
 public class Scene {
     private ArrayList<Control> controls = new ArrayList<>();
     private ArrayList<InteractiveControl> interactiveControls = new ArrayList<>();
+    private ArrayList<Control> redraw = new ArrayList<>();
     private InteractiveControl currentFocus = null;
+    private final CommandLine commandLine = new CommandLine();
     private boolean isCurrentScene = false;
     private int index = 0;
 
     public void addControl(Control control){
         controls.add(control);
+        if(control.isRedraw()) redraw.add(control);
         if(control instanceof Container) addContainer((Container) control);
         else searchAndAddInteractiveControls(control);
     }
@@ -32,6 +36,7 @@ public class Scene {
         Arrays.stream(controls)
                 .filter((Control control) -> control instanceof InteractiveControl)
                 .forEach((Control control) -> interactiveControls.add((InteractiveControl) control));
+        Arrays.stream(controls).filter(Control::isRedraw).forEach((Control control) -> redraw.add(control));
         if (currentFocus == null && !interactiveControls.isEmpty()) {
             currentFocus = interactiveControls.get(index);
             currentFocus.setFocus(true);
@@ -68,7 +73,9 @@ public class Scene {
     }
 
     protected void draw(){
-
+        eraseScreen();
+        redraw.forEach(Control::draw);
+        commandLine.draw();
     }
 
     public boolean isCurrentScene() {

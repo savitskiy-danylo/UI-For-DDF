@@ -1,6 +1,7 @@
 package GachiCore.GameHandlers;
 
 import GachiCore.Entities.Base.GachiPowerUser;
+import GachiCore.GameHandlers.Floors.Base.Shop;
 
 public class Floor {
     private GachiPowerUser hero;
@@ -35,5 +36,7 @@ public class Floor {
     public boolean isClear(){
         return enemies.isClear();
     }
+
+    public Shop getShop(){ return shop; }
 
 }

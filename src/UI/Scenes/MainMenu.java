@@ -30,6 +30,7 @@ public class MainMenu extends Scene {
         menu.setX(50);
         menu.setY(5);
 
+        menu.setRedraw(true);
         addControl(menu);
 
         setCurrentScene(true);
@@ -39,12 +40,5 @@ public class MainMenu extends Scene {
         if(settings == null) settings = SceneContainer.getScene("Settings");
         setCurrentScene(false);
         settings.setCurrentScene(true);
-    }
-
-
-    @Override
-    protected void draw() {
-        eraseScreen();
-        menu.draw();
     }
 }

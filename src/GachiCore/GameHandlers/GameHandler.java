@@ -1,4 +1,5 @@
 package GachiCore.GameHandlers;
 
-public class Shop {
+public class GameHandler {
+
 }

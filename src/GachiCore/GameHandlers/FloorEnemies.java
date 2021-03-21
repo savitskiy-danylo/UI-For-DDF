@@ -1,6 +1,10 @@
 package GachiCore.GameHandlers;
 
+import Controllers.MBox.Message;
+import Controllers.MBox.MessageBox;
+import Controllers.MBox.MessageType;
 import GachiCore.AI.AIUser;
+import GachiCore.Components.Items.Base.Item;
 import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.Inventory;
@@ -15,6 +19,8 @@ public class FloorEnemies {
     private ArrayList<AIUser> aiForRemove = new ArrayList<>();
     private ArrayList<Inventory> inventories = new ArrayList<>();
     private GachiPowerUser hero;
+    private final MessageBox messageBox = MessageBox.getInstance();
+    private Message itemFound = new Message("Item found: ", MessageType.POSITIVE);
     private boolean needRefresh = false;
 
     public FloorEnemies(GachiPowerUser gachiPowerUser, AIUser... aiUsers) {
@@ -122,9 +128,16 @@ public class FloorEnemies {
     public void end(){
         for (Inventory inventory : inventories) {
             inventory.setOwner(hero);
-            inventory.getEquipments().forEach((Equipment equip) -> hero.getInventory().addItem(equip));
-            inventory.getConsumables().forEach((Consumable consumable) -> hero.getInventory().addItem(consumable));
+            inventory.getEquipments().forEach((Equipment equip) -> addItem(equip));
+            inventory.getConsumables().forEach((Consumable consumable) -> addItem(consumable));
+
             hero.getInventory().addMoney(inventory.getMoney());
         }
     }
+
+    private void addItem(Item item){
+        hero.getInventory().addItem(item);
+        messageBox.addNewMessage(new Message(item.getDescription() + item.getName(), MessageType.POSITIVE));
+    }
+
 }

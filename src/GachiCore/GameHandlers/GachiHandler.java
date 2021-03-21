@@ -1,5 +1,8 @@
 package GachiCore.GameHandlers;
 
+import Controllers.MBox.Message;
+import Controllers.MBox.MessageBox;
+import Controllers.MBox.MessageType;
 import GachiCore.Entities.Base.GachiPowerUser;
 
 public class GachiHandler {
@@ -7,17 +10,14 @@ public class GachiHandler {
     private GachiPowerUser hero;
     private FloorHandler floorHandler = FloorHandler.getInstance();
     private Floor currentFloor;
+    private MessageBox messageBox = MessageBox.getInstance();
+
     private GachiHandler() {
     }
     public static GachiHandler getInstance(){ return gachiHandler; }
 
-
-    public void leftSide(){
-        currentFloor = floorHandler.getLeftSide();
-    }
-
-    public void rightSide(){
-        currentFloor = floorHandler.getRightSide();
+    private void getNextFloor(){
+        currentFloor = floorHandler.getNextFloor();
     }
 
     public void nextTurn(){
@@ -30,6 +30,11 @@ public class GachiHandler {
         hero.newTurn();
         currentFloor.newTurn();
 
+    }
+
+    public void nextFloor(){
+        getNextFloor();
+        if(currentFloor == null) messageBox.addNewMessage(new Message("Game over!", MessageType.SYSTEM));
     }
 
     public boolean floorIsClear(){

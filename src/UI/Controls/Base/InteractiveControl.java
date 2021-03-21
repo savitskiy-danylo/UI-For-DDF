@@ -14,11 +14,14 @@ public abstract class InteractiveControl extends Control{
 
     @Override
     protected void refreshView() {
-        if(refresh){
-            view = currentView.getView("");
+        if(refreshStyle){
+            view.setBorders(currentView.getView("").getBorders());
+            view.setColorScheme(currentView.getView("").getColorScheme());
             colorScheme = view.getColorScheme();
             activeColorScheme = currentView.getActiveColorScheme();
         }
+        if(focus)
+            view.setColorScheme(activeColorScheme);
     }
 
     public void addClickListener(Consumer<? super InteractiveControl> listener){

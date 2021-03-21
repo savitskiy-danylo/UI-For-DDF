@@ -7,15 +7,17 @@ public abstract class Control {
     protected int heightMin, widthMin;
     protected CurrentView currentView = CurrentView.getInstance();
     protected View view = currentView.getView("");
-    protected boolean refresh = true;
+    protected boolean refreshStyle = true;
+    protected boolean redraw = false;
 
     {
         currentView.addListener(() -> refreshView());
     }
 
     protected void refreshView(){
-        if(refresh){
-            view = currentView.getView("");
+        if(refreshStyle){
+            view.setBorders(currentView.getView("").getBorders());
+            view.setColorScheme(currentView.getView("").getColorScheme());
         }
     }
 
@@ -57,8 +59,20 @@ public abstract class Control {
         view.setWidth(width);
     }
 
-    public void setRefresh(boolean refresh) {
-        this.refresh = refresh;
+    public void setRefreshStyle(boolean refreshStyle) {
+        this.refreshStyle = refreshStyle;
+    }
+
+    public boolean isRefreshStyle() {
+        return refreshStyle;
+    }
+
+    public boolean isRedraw() {
+        return redraw;
+    }
+
+    public void setRedraw(boolean redraw) {
+        this.redraw = redraw;
     }
 
     public abstract void draw();

@@ -29,8 +29,10 @@ public class Inventory {
     }
 
     public void removeItem(Item item){
-        if(item instanceof Equipment && equipments.contains((Equipment) item))
+        if(item instanceof Equipment && equipments.contains((Equipment) item)) {
             equipments.remove((Equipment) item);
+            takeOff((Equipment) item);
+        }
         else
         {
             if(item instanceof Consumable && consumables.contains((Consumable) item))
