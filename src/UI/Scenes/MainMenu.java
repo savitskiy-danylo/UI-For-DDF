@@ -7,7 +7,7 @@ import UI.Scenes.Base.Scene;
 
 public class MainMenu extends Scene {
     private Panel menu;
-    private Scene settings;
+    private Scene settings, fight;
 
     public MainMenu() {
         menu = new Panel();
@@ -15,6 +15,7 @@ public class MainMenu extends Scene {
 
         Button play = new Button();
         play.setText("Play");
+        play.addClickListener((InteractiveControl control) -> displayFight(control));
 
         Button settings = new Button();
         settings.setText("Settings");
@@ -40,5 +41,11 @@ public class MainMenu extends Scene {
         if(settings == null) settings = SceneContainer.getScene("Settings");
         setCurrentScene(false);
         settings.setCurrentScene(true);
+    }
+
+    private void displayFight(InteractiveControl control){
+        if(fight == null) fight = SceneContainer.getScene("Fight");
+        setCurrentScene(false);
+        fight.setCurrentScene(true);
     }
 }

@@ -42,7 +42,7 @@ public class ItemDictionary {
     }
 
     public Item getItem(String name){
-        return items.get(name);
+        return items.getOrDefault(name, null);
     }
 
 }

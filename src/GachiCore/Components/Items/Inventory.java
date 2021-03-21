@@ -18,6 +18,7 @@ public class Inventory {
     private int money;
 
     public void addItem(Item item){
+        if(item == null) return;
         item.setOwner(owner);
         if(item instanceof Equipment)
             equipments.add((Equipment) item);
@@ -41,6 +42,7 @@ public class Inventory {
     }
 
     public void takeOn(Equipment equipment){
+        if(equipment == null) return;
         if(equipment.getEquipmentType() == EquipmentType.ARMOR){
             if(armor != null){
                 armor.takeOff();

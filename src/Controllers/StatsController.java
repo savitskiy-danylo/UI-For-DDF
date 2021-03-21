@@ -6,6 +6,11 @@ import GachiCore.GameHandlers.GachiHandler;
 public class StatsController {
     private final GachiHandler gachiHandler = GachiHandler.getInstance();
     private final GachiPowerUser player = gachiHandler.getHero();
+    private static final StatsController instance = new StatsController();
+    private StatsController(){}
+    public static StatsController getInstance() {
+        return instance;
+    }
 
     public String getName(){
         return player.getName();

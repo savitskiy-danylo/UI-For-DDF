@@ -14,6 +14,11 @@ public class ShopController {
     private final FloorHandler floorHandler = FloorHandler.getInstance();
     private final GachiPowerUser user = gachiHandler.getHero();
     private Shop shop;
+    private static final ShopController instance = new ShopController();
+    private ShopController(){}
+    public static ShopController getInstance() {
+        return instance;
+    }
 
     public boolean haveShop(){
         if(floorHandler.getCurrentFloor().getShop() == null) {

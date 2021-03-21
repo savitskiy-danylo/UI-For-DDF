@@ -5,6 +5,7 @@ import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.Equipment.Base.EquipmentType;
 import GachiCore.Entities.Base.GachiPowerUser;
+import GachiCore.GameHandlers.FloorHandler;
 import GachiCore.GameHandlers.GachiHandler;
 
 import java.util.ArrayList;
@@ -12,9 +13,18 @@ import java.util.Arrays;
 
 public class PlayerController{
     private final GachiHandler gachiHandler = GachiHandler.getInstance();
+    private final FloorHandler floorHandler = FloorHandler.getInstance();
     private final GachiPowerUser player = gachiHandler.getHero();
+    private static final PlayerController instance = new PlayerController();
+    private PlayerController(){}
 
+    public static PlayerController getInstance() {
+        return instance;
+    }
 
+    public int getFloorNumber(){
+        return floorHandler.getNumberOfFloor();
+    }
 
     public void attack(){
         player.attack();
@@ -22,6 +32,10 @@ public class PlayerController{
 
     public void nextTurn(){
         player.nextTurn();
+    }
+
+    public boolean isClear(){
+        return floorHandler.getCurrentFloor().isClear();
     }
 
     public ItemInformation[] getItems(){

@@ -16,7 +16,7 @@ public class ControlDictionary {
         mainDictionary.put("s", Actions.DOWN);
         mainDictionary.put("e", Actions.OK);
 
-        additionalDictionary.put("exit", () -> System.exit(0));
+        additionalDictionary.put("exit", () -> StartPoint.onExit());
     }
 
     public static boolean isControl(String control){ return mainDictionary.containsKey(control); }

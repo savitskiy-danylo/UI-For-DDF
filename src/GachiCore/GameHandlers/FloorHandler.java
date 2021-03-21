@@ -7,7 +7,7 @@ public class FloorHandler {
     private static final FloorHandler floorHandler = new FloorHandler();
     private final FloorsDictionary floorsDictionary = FloorsDictionary.getInstance();
     private GachiHandler gachiHandler = GachiHandler.getInstance();
-    private int numberOfFloor = 0;
+    private int numberOfFloor = 1;
     private FloorHandler(){}
 
     public static FloorHandler getInstance(){ return floorHandler; }

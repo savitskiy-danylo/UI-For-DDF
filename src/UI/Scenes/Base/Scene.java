@@ -1,5 +1,8 @@
 package UI.Scenes.Base;
 
+import Controllers.PlayerController;
+import Controllers.ShopController;
+import Controllers.StatsController;
 import UI.Actions;
 import UI.Controls.Base.Control;
 import UI.Controls.Base.InteractiveControl;
@@ -12,6 +15,9 @@ import java.util.Arrays;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Scene {
+    protected final PlayerController playerController = PlayerController.getInstance();
+    protected final ShopController shopController = ShopController.getInstance();
+    protected final StatsController statsController = StatsController.getInstance();
     private ArrayList<Control> controls = new ArrayList<>();
     private ArrayList<InteractiveControl> interactiveControls = new ArrayList<>();
     private ArrayList<Control> redraw = new ArrayList<>();
@@ -72,7 +78,7 @@ public class Scene {
         currentFocus.setFocus(true);
     }
 
-    protected void draw(){
+    public void draw(){
         eraseScreen();
         redraw.forEach(Control::draw);
         commandLine.draw();
