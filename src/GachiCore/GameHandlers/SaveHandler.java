@@ -28,7 +28,7 @@ public class SaveHandler {
         //TODO LOAD
     }
 
-    public String getSave(){
+    private String getSave(){
         return "SAVE";//TODO SAVE
     }
 }
