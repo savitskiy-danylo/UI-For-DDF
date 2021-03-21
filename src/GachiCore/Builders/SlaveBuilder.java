@@ -6,6 +6,7 @@ import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
 import GachiCore.Components.Buffs.HealPotionT1;
 import GachiCore.Components.Buffs.SlaveRageBuff;
+import GachiCore.Components.Items.Consumables.Base.SmallHealPotion;
 import GachiCore.Components.Items.Equipment.LeatherArmor;
 import GachiCore.Components.Items.Equipment.Stick;
 import GachiCore.Components.Items.Inventory;
@@ -22,6 +23,8 @@ public class SlaveBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         Slave slave = new Slave(stats, inventory, false);
         Stick stick = new Stick();
+        SmallHealPotion potion = new SmallHealPotion();
+        inventory.addItem(potion);
         inventory.takeOn(stick);
         inventory.addMoney(randmoney());
         slave.setName("Slave");

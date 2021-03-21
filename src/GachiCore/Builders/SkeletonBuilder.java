@@ -4,6 +4,8 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.Skeleton;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.MediumHealPotion;
+import GachiCore.Components.Items.Consumables.Base.SmallHealPotion;
 import GachiCore.Components.Items.Equipment.Bow;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -19,6 +21,8 @@ public class SkeletonBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         Skeleton skeleton = new Skeleton(stats, inventory,true);
         Bow bow = new Bow();
+        SmallHealPotion potion = new SmallHealPotion();
+        inventory.addItem(potion);
         setName("Skeleton");
         skeleton.setName("Skeleton ");
         inventory.takeOn(bow);

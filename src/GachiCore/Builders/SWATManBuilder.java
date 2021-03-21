@@ -4,6 +4,8 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.SWATMan;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.LargeHealPotion;
+import GachiCore.Components.Items.Consumables.Base.SmallHealPotion;
 import GachiCore.Components.Items.Equipment.M4A4;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -18,6 +20,8 @@ public class SWATManBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         SWATMan swatMan = new SWATMan(stats, inventory, true);
         M4A4 m4A4 = new M4A4();
+        LargeHealPotion potion = new LargeHealPotion();
+        inventory.addItem(potion);
         inventory.takeOn(m4A4);
         inventory.addMoney(randmoney());
         setName("SWATMan");

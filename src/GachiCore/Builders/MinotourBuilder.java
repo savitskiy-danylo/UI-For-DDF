@@ -4,6 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.Minotour;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.MediumHealPotion;
 import GachiCore.Components.Items.Equipment.Axe;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -18,6 +19,8 @@ public class MinotourBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         Minotour minotour = new Minotour(stats, inventory, false);
         Axe axe = new Axe();
+        MediumHealPotion potion = new MediumHealPotion();
+        inventory.addItem(potion);
         inventory.takeOn(axe);
         inventory.addMoney(randmoney());
 

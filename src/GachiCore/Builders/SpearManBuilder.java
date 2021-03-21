@@ -5,6 +5,8 @@ import GachiCore.AI.Slime;
 import GachiCore.AI.SpearMan;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.MediumHealPotion;
+import GachiCore.Components.Items.Consumables.Base.SmallHealPotion;
 import GachiCore.Components.Items.Equipment.Spear;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -20,6 +22,8 @@ public class SpearManBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         SpearMan spearMan = new SpearMan(stats, inventory, false);
         Spear spear = new Spear();
+        MediumHealPotion potion = new MediumHealPotion();
+        inventory.addItem(potion);
         inventory.takeOn(spear);
         inventory.addMoney(randmoney());
         setName("SpearMan");

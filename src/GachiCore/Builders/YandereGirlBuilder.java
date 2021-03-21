@@ -4,6 +4,8 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.YandereGirl;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.LargeHealPotion;
+import GachiCore.Components.Items.Consumables.Base.SmallHealPotion;
 import GachiCore.Components.Items.Equipment.BloodyKnife;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -18,6 +20,8 @@ public class YandereGirlBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         YandereGirl yandereGirl = new YandereGirl(stats, inventory, false);
         BloodyKnife bloodyKnife = new BloodyKnife();
+        LargeHealPotion potion = new LargeHealPotion();
+        inventory.addItem(potion);
         inventory.takeOn(bloodyKnife);
         inventory.addMoney(randmoney());
         setName("YandereGirl");

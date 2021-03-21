@@ -4,6 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.PewMan;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.MediumHealPotion;
 import GachiCore.Components.Items.Equipment.WaterPistol;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -18,6 +19,8 @@ public class PewManBuilder extends AiBase implements AIBuilder {
         Inventory inventory = new Inventory();
         PewMan pewMan = new PewMan(stats, inventory, true);
         WaterPistol waterPistol = new WaterPistol();
+        MediumHealPotion potion = new MediumHealPotion();
+        inventory.addItem(potion);
         inventory.takeOn(waterPistol);
         inventory.addMoney(randmoney());
         setName("PewMan");
