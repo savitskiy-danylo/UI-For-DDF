@@ -1,11 +1,12 @@
-package UI.Components;
+package UI.Components.ViewComponent;
 
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class View {
     private String text;
     private String[] mutateText;
-    private int width, height = 3, x, y=1;
+    private int width, height, x = 1, y = 1;
+    private int widthMax;
     private Borders borders;
 
     public ColorScheme getColorScheme() {
@@ -35,7 +36,7 @@ public class View {
             System.out.print(ansi()
                     .bgRgb(colorScheme.getBgTextRgb())
                     .fgRgb(colorScheme.getFgTextRgb())
-                    .cursor(y+index, x+3)
+                    .cursor(y+index, x + (width - line.length())/2 + 1)
                     .a(line));
             index++;
         }
@@ -46,7 +47,7 @@ public class View {
         mutateText = text.split("\n");
     }
 
-    private int getCountOfLines(){
+    private int getMaxCountOfSymbols(){
         int maxLength = 0;
         for (var line :
                 mutateText) {
@@ -57,7 +58,7 @@ public class View {
     }
 
     private void refreshWidth(){
-        int maxLength = getCountOfLines();
+        int maxLength = getMaxCountOfSymbols();
         if(width - 2 < maxLength) width = maxLength + 2;
     }
     private void refreshHeight(){
@@ -70,14 +71,14 @@ public class View {
     }
 
     public void setWidth(int width) {
-        refreshWidth();
         this.width = width;
+        refreshWidth();
     }
 
     public void setHeight(int height) {
         if(height < 3) return;
-        refreshWidth();
         this.height = height;
+        refreshWidth();
     }
 
     public void setX(int x) {
@@ -88,8 +89,16 @@ public class View {
         this.y = y;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
     public int getWidth() {
-        return width;
+        return widthMax;
     }
 
     public int getHeight() {
@@ -113,5 +122,6 @@ public class View {
         refreshMutateText();
         refreshWidth();
         refreshHeight();
+        widthMax = width + 2;
     }
 }

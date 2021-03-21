@@ -1,4 +1,4 @@
-package UI.Components;
+package UI.Components.ViewComponent;
 
 import static org.fusesource.jansi.Ansi.ansi;
 

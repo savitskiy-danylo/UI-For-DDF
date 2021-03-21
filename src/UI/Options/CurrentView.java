@@ -5,6 +5,7 @@ import UI.Components.Builders.Realizations.BiosView;
 import UI.Components.ViewComponent.ColorScheme;
 import UI.Components.ViewComponent.View;
 
+
 import java.util.ArrayList;
 
 public class CurrentView {

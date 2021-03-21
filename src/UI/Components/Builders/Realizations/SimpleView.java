@@ -1,8 +1,8 @@
 package UI.Components.Builders.Realizations;
 
+import UI.Components.ViewComponent.ColorScheme;
 import UI.Components.ViewComponent.Borders;
 import UI.Components.Builders.Interfaces.ViewBuilder;
-import UI.Components.ViewComponent.ColorScheme;
 import UI.Components.ViewComponent.View;
 
 import java.awt.*;
