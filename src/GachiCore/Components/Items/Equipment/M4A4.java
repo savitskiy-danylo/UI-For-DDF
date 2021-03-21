@@ -1,5 +1,6 @@
 package GachiCore.Components.Items.Equipment;
 
+import GachiCore.Components.Buffs.M4A4Buff;
 import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.Equipment.Base.EquipmentType;
 import GachiCore.Components.Items.Equipment.Base.Quality;
@@ -7,8 +8,9 @@ import GachiCore.Entities.Base.Enemy;
 
 public class M4A4 extends Equipment {
     public M4A4(){
-        super("M4A4", "Dangerous weapon!", 150, 75, EquipmentType.WEAPON);
+        super("M4A4", "Dangerous weapon!\ndamage + 15; misschance + 8%", 150, 75, EquipmentType.WEAPON);
         setQuality(Quality.THREE);
+        buffs.add(new M4A4Buff());
 
     }
     @Override

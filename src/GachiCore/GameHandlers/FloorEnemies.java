@@ -18,20 +18,19 @@ public class FloorEnemies {
     private ArrayList<AIUser> bots = new ArrayList<>();
     private ArrayList<AIUser> aiForRemove = new ArrayList<>();
     private ArrayList<Inventory> inventories = new ArrayList<>();
-    private GachiPowerUser hero;
+    private GachiPowerUser hero = GachiHandler.getInstance().getHero();
     private final MessageBox messageBox = MessageBox.getInstance();
     private Message itemFound = new Message("Item found: ", MessageType.POSITIVE);
     private boolean needRefresh = false;
 
-    public FloorEnemies(GachiPowerUser gachiPowerUser, AIUser... aiUsers) {
-        hero = gachiPowerUser;
+    public FloorEnemies(AIUser... aiUsers) {
         Arrays.stream(aiUsers).forEach((AIUser bot) -> addBot(bot));
         for (AIUser user : bots) {
             ((Entity) user).addActionAfterDeath((Entity entity) -> removeBot(user));
             inventories.add(((Entity) user).getInventory());
         }
         bots.get(0).setVanguard(true);
-        gachiPowerUser.setEnemy((Entity) bots.get(0));
+        hero.setEnemy((Entity) bots.get(0));
     }
 
     public void addBot(AIUser aiUser){

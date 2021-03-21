@@ -6,6 +6,7 @@ import java.util.Map;
 public class FloorsDictionary {
     private final Map<Integer, FloorBuilder> floors = new HashMap<>();
     {
+        floors.put(1, new FirstFloor());
 
     }
     private static final FloorsDictionary instance = new FloorsDictionary();

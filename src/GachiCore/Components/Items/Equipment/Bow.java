@@ -8,7 +8,7 @@ import GachiCore.Entities.Base.Enemy;
 
 public class Bow extends Equipment {
     public Bow() {
-        super("bow", "ranged thing", 40, 20, EquipmentType.WEAPON);
+        super("Bow", "ranged thing\ndamage + 5; misschance: 11%", 40, 20, EquipmentType.WEAPON);
         setQuality(Quality.ONE);
         buffs.add(new BowBuff());
     }

@@ -8,7 +8,7 @@ import GachiCore.Components.Items.Equipment.Base.Quality;
 
 public class Axe extends Equipment {
     public Axe(){
-        super("Axe", "For brutal creature's", 120, 60, EquipmentType.WEAPON);
+        super("Axe", "For brutal creature's\ndamage + 13;", 120, 60, EquipmentType.WEAPON);
         setQuality(Quality.TWO);
         buffs.add(new AxeBuff());
 

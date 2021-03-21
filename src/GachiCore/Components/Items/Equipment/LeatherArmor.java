@@ -8,7 +8,7 @@ import GachiCore.Components.Items.Equipment.Base.Quality;
 
 public class LeatherArmor extends Equipment {
     public LeatherArmor() {
-        super("LeatherArmor", "Really hard", 30, 15, EquipmentType.ARMOR);
+        super("LeatherArmor", "Really cool\nhp + 10; armor + 2;", 30, 15, EquipmentType.ARMOR);
         setQuality(Quality.ONE);
         buffs.add(new LeatherArmorBuff());
 

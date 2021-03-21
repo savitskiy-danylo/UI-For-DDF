@@ -10,12 +10,12 @@ public class LatexCostumeBuff extends Buff {
     @Override
     protected void takeOnOnce() {
         target.getStats().addStrength(50);
-        target.getStats().addArmor(2);
+        target.getStats().addArmor(20);
     }
 
     @Override
     protected void takeOffOnce() {
         target.getStats().minusStrength(50);
-        target.getStats().minusArmor(2);
+        target.getStats().minusArmor(20);
     }
 }

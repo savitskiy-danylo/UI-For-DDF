@@ -4,16 +4,15 @@ import GachiCore.Entities.Base.GachiPowerUser;
 import GachiCore.GameHandlers.Floors.Base.Shop;
 
 public class Floor {
-    private GachiPowerUser hero;
+    private GachiPowerUser hero = GachiHandler.getInstance().getHero();
     private FloorEnemies enemies;
     private Shop shop;
 
-    public Floor(GachiPowerUser hero, FloorEnemies enemies) {
-        this(hero, enemies, null);
+    public Floor(FloorEnemies enemies) {
+        this(enemies, null);
     }
 
-    public Floor(GachiPowerUser hero, FloorEnemies enemies, Shop shop) {
-        this.hero = hero;
+    public Floor(FloorEnemies enemies, Shop shop) {
         this.enemies = enemies;
         this.shop = shop;
     }

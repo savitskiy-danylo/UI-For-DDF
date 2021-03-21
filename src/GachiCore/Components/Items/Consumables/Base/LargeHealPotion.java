@@ -6,7 +6,7 @@ import GachiCore.Components.Items.Equipment.Base.Quality;
 
 public class LargeHealPotion extends Consumable{
     public LargeHealPotion(){
-        super("MediumHealPotion", "Heal 60hp", 80, 40);
+        super("LargeHealPotion", "Heal 60hp", 80, 40);
         setQuality(Quality.THREE);
         buffs.add(new HealPotionT3());
     }
