@@ -5,9 +5,11 @@ import UI.Controls.Base.InteractiveControl;
 import UI.Controls.Button;
 import UI.Controls.Panel;
 import UI.Scenes.Base.GameScene;
+import UI.Scenes.Base.Scene;
 
 public class FloorMenu extends GameScene {
     private Panel menu;
+    private Scene inventory, fight;
     private PlayerController playerController = PlayerController.getInstance();
     public FloorMenu(){
         menu = new Panel();
@@ -22,6 +24,7 @@ public class FloorMenu extends GameScene {
 
         Button nextFloor = new Button();
         nextFloor.setText("Next");
+        nextFloor.addClickListener((InteractiveControl control) -> nextFloor(control));
 
         menu.addControl(shop);
         menu.addControl(inventory);
@@ -35,6 +38,22 @@ public class FloorMenu extends GameScene {
     }
 
     private void displayInventory(InteractiveControl control){
-        //TODO DISPLAY INVENTORY
+        if(inventory == null) inventory = SceneContainer.getScene("Inventory");
+        ((Inventory) inventory).setCaller(this);
+        setCurrentScene(false);
+        inventory.setCurrentScene(true);
+    }
+
+    private void nextFloor(InteractiveControl control){
+        if(fight == null) fight = SceneContainer.getScene("Fight");
+        playerController.nextFloor();
+        setCurrentScene(false);
+        fight.setCurrentScene(true);
+    }
+
+    @Override
+    public void setCurrentScene(boolean currentScene) {
+        super.setCurrentScene(currentScene);
+        menu.setHeading("Floor №" + playerController.getFloorNumber());
     }
 }

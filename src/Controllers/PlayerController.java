@@ -31,7 +31,7 @@ public class PlayerController{
     }
 
     public void nextTurn(){
-        player.nextTurn();
+        gachiHandler.nextTurn();
     }
 
     public boolean isClear(){
@@ -40,8 +40,8 @@ public class PlayerController{
 
     public ItemInformation[] getItems(){
         ArrayList<ItemInformation> itemInformationList = new ArrayList<>();
-        Arrays.stream(getEquipment()).peek((ItemInformation itemInfo) -> itemInformationList.add(itemInfo));
-        Arrays.stream(getConsumables()).peek((ItemInformation itemInfo) -> itemInformationList.add(itemInfo));
+        Arrays.stream(getEquipment()).forEach((ItemInformation itemInfo) -> itemInformationList.add(itemInfo));
+        Arrays.stream(getConsumables()).forEach((ItemInformation itemInfo) -> itemInformationList.add(itemInfo));
         return itemInformationList.toArray(new ItemInformation[itemInformationList.size()]);
     }
 
@@ -102,10 +102,18 @@ public class PlayerController{
         }
     }
 
+    public boolean isAlive(){
+        return player.isAlive();
+    }
+
     private boolean compare(ItemInformation itemInfo, Item item) {
         return itemInfo.getName() == item.getName() &&
                 itemInfo.getDescription() == item.getDescription() &&
                 Integer.parseInt(itemInfo.getPurchasingPrice()) == item.getPurchasePrice() &&
                 Integer.parseInt(itemInfo.getSellingPrice()) == item.getSellingPrice();
+    }
+
+    public void nextFloor(){
+        gachiHandler.nextFloor();
     }
 }

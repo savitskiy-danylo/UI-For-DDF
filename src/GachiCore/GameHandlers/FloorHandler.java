@@ -7,6 +7,7 @@ public class FloorHandler {
     private static final FloorHandler floorHandler = new FloorHandler();
     private final FloorsDictionary floorsDictionary = FloorsDictionary.getInstance();
     private GachiHandler gachiHandler = GachiHandler.getInstance();
+    private Floor currentFloor = null;
     private int numberOfFloor = 1;
     private FloorHandler(){}
 
@@ -19,13 +20,20 @@ public class FloorHandler {
     }
 
     public Floor getCurrentFloor(){
-        FloorBuilder floorBuilder = floorsDictionary.getFloor(numberOfFloor);
-        if(floorBuilder == null) return null;
-        return floorBuilder.getFloor();
+        if(currentFloor == null){
+            FloorBuilder floorBuilder = floorsDictionary.getFloor(numberOfFloor);
+            if(floorBuilder == null) return null;
+            currentFloor = floorBuilder.getFloor();
+        }
+        return currentFloor;
     }
 
     public Floor getNextFloor(){
-        numberOfFloor++;
-        return getCurrentFloor();
+        if(currentFloor != null) {
+            numberOfFloor++;
+            currentFloor = null;
+            getCurrentFloor();
+        }
+        return currentFloor;
     }
 }

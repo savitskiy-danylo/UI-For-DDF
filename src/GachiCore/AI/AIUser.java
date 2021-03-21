@@ -8,4 +8,5 @@ public interface AIUser {
     public void setVanguard(boolean flag);
     public void nextTurn();
     public void newTurn();
+    public boolean isAlive();
 }

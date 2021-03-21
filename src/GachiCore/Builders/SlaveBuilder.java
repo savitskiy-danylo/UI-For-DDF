@@ -25,6 +25,7 @@ public class SlaveBuilder extends AiBase implements AIBuilder {
         Stick stick = new Stick();
         SmallHealPotion potion = new SmallHealPotion();
         inventory.addItem(potion);
+        stick.setOwner(slave);
         inventory.takeOn(stick);
         inventory.addMoney(randmoney());
         slave.setName("Slave");

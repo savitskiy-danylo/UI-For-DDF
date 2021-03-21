@@ -49,7 +49,18 @@ public class StatsController {
     }
 
     public String getDamageRange(){
-        return intToString(player.getStats().getDamageMax()) + "-" + intToString(player.getStats().getDamageMax());
+        return intToString(player.getStats().getDamageMin()) + "-" + intToString(player.getStats().getDamageMax());
+    }
+
+    public String getArmor(){
+        return intToString(player.getStats().getArmor());
+    }
+    /*
+    Range
+     */
+    public String getAP(){
+        return intToString(player.getStats().getActionPointsCurrent()) + "/" +
+                intToString(player.getStats().getActionPointsMax());
     }
 
     private String intToString(int number){

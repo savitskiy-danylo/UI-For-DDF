@@ -25,16 +25,16 @@ public class FloorEnemies {
 
     public FloorEnemies(AIUser... aiUsers) {
         Arrays.stream(aiUsers).forEach((AIUser bot) -> addBot(bot));
-        for (AIUser user : bots) {
-            ((Entity) user).addActionAfterDeath((Entity entity) -> removeBot(user));
-            inventories.add(((Entity) user).getInventory());
-        }
-        bots.get(0).setVanguard(true);
-        hero.setEnemy((Entity) bots.get(0));
     }
 
     public void addBot(AIUser aiUser){
         bots.add(aiUser);
+        ((Entity) aiUser).addActionAfterDeath((Entity entity) -> removeBot(aiUser));
+        inventories.add(((Entity) aiUser).getInventory());
+        if(bots.size() == 1) {
+            bots.get(0).setVanguard(true);
+            hero.setEnemy((Entity) bots.get(0));
+        }
     }
 
     public void removeBot(AIUser removeASSer){
@@ -121,7 +121,9 @@ public class FloorEnemies {
     }
 
     public boolean isClear(){
-        return bots.isEmpty();
+        boolean answer = bots.isEmpty() || aiForRemove.size() == bots.size();
+        if(answer) end();
+        return answer;
     }
 
     public void end(){
@@ -136,7 +138,7 @@ public class FloorEnemies {
 
     private void addItem(Item item){
         hero.getInventory().addItem(item);
-        messageBox.addNewMessage(new Message(item.getDescription() + item.getName(), MessageType.POSITIVE));
+        messageBox.addNewMessage(new Message(item.getName(), MessageType.POSITIVE));
     }
 
 }

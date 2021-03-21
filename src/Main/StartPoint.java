@@ -1,5 +1,8 @@
 package Main;
 
+import Controllers.MBox.Message;
+import Controllers.MBox.MessageBox;
+import Controllers.MBox.MessageType;
 import GachiCore.GameHandlers.SaveHandler;
 
 import org.fusesource.jansi.AnsiConsole;
@@ -11,6 +14,7 @@ public class StartPoint {
 
     public static void onStartup(){
         saveHandler.load();
+        MessageBox.getInstance().addNewMessage(new Message("Welcome to the DEEP DARK FANTASY!", MessageType.SYSTEM));
     }
 
     public static void main(String[] args){

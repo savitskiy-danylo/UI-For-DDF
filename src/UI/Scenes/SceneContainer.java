@@ -10,6 +10,7 @@ public class SceneContainer {
     private static boolean isInit = false;
 
     private static void init(){
+        scenes.put("Inventory", new Inventory());
         scenes.put("Fight", new Fight());
         scenes.put("Settings", new Settings());
         scenes.put("MainMenu", new MainMenu());

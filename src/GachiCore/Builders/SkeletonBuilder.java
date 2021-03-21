@@ -25,6 +25,7 @@ public class SkeletonBuilder extends AiBase implements AIBuilder {
         inventory.addItem(potion);
         setName("Skeleton");
         skeleton.setName("Skeleton ");
+        bow.setOwner(skeleton);
         inventory.takeOn(bow);
         inventory.addMoney(randmoney());
         skeleton.setMessenger(messenger);

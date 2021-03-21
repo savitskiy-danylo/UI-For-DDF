@@ -7,16 +7,16 @@ import GachiCore.Components.Messenger;
 import GachiCore.Components.Skills.Base.GachiPower;
 import GachiCore.Components.Stats;
 import GachiCore.Entities.Base.GachiPowerUser;
-import GachiCore.Entities.Poida;
+import GachiCore.Entities.Billy;
 
-public class PoidaBuilder implements PlayerBuilder {
+public class BillyBuilder implements PlayerBuilder {
     protected Messenger messenger;
 
     protected void setName(String name){
-        messenger = new Messenger(name + " was damaged on: ", MessageType.POSITIVE,
-                name + " was healed on: ", MessageType.NEGATIVE,
-                name + " dodged the attack", MessageType.NEGATIVE,
-                name + " died", MessageType.POSITIVE);
+        messenger = new Messenger(name + " was damaged on: ", MessageType.NEGATIVE,
+                name + " was healed on: ", MessageType.POSITIVE,
+                name + " dodged the attack", MessageType.POSITIVE,
+                name + " died", MessageType.NEGATIVE);
     }
 
     @Override
@@ -25,10 +25,10 @@ public class PoidaBuilder implements PlayerBuilder {
                 100, 1, 80, 1);
         Inventory inventory = new Inventory();
         GachiPower gachiPower = new GachiPower(5000, 100, 2, 2);
-        Poida poida = new Poida(stats, inventory, gachiPower);
-        setName("Mr. Dickensos");
-        poida.setName("Mr. Dickensos");
-        poida.setMessenger(messenger);
-        return poida;
+        Billy billy = new Billy(stats, inventory, gachiPower);
+        setName("Mr. Billy");
+        billy.setName("Mr. Billy");
+        billy.setMessenger(messenger);
+        return billy;
     }
 }

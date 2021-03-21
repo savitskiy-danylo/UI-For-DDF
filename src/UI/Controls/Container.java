@@ -18,4 +18,5 @@ public abstract class Container extends Control {
     public ArrayList<Control> getControls() {
         return controls;
     }
+    public void clear(){ controls.clear(); }
 }

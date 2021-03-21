@@ -20,9 +20,9 @@ public class Scene {
     protected final StatsController statsController = StatsController.getInstance();
     private ArrayList<Control> controls = new ArrayList<>();
     private ArrayList<InteractiveControl> interactiveControls = new ArrayList<>();
-    private ArrayList<Control> redraw = new ArrayList<>();
+    protected ArrayList<Control> redraw = new ArrayList<>();
     private InteractiveControl currentFocus = null;
-    private final CommandLine commandLine = new CommandLine();
+    protected final CommandLine commandLine = new CommandLine();
     private boolean isCurrentScene = false;
     private int index = 0;
 
@@ -31,6 +31,16 @@ public class Scene {
         if(control.isRedraw()) redraw.add(control);
         if(control instanceof Container) addContainer((Container) control);
         else searchAndAddInteractiveControls(control);
+    }
+
+    public void clearControls(){
+        controls.clear();
+        interactiveControls.clear();
+        redraw.clear();
+
+        index = 0;
+        currentFocus = null;
+
     }
 
     private void addContainer(Container container){

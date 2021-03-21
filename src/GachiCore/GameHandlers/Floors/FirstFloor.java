@@ -1,12 +1,13 @@
-package GachiCore.GameHandlers.Floors.Base;
+package GachiCore.GameHandlers.Floors;
 
 import GachiCore.AI.Slime;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.SlimeBuilder;
 import GachiCore.GameHandlers.Floor;
 import GachiCore.GameHandlers.FloorEnemies;
+import GachiCore.GameHandlers.Floors.Base.FloorBuilder;
 
-public class FirstFloor implements FloorBuilder{
+public class FirstFloor implements FloorBuilder {
 
     @Override
     public Floor getFloor() {

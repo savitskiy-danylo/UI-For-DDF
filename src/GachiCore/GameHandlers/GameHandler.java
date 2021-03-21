@@ -1,6 +1,6 @@
 package GachiCore.GameHandlers;
 
-import GachiCore.Builders.PoidaBuilder;
+import GachiCore.Builders.BillyBuilder;
 import GachiCore.Entities.Base.GachiPowerUser;
 
 public class GameHandler {
@@ -13,11 +13,13 @@ public class GameHandler {
     }
 
     public void startNewGame(){
-        gachiHandler.setHero(new PoidaBuilder().build());
+        gachiHandler.setHero(new BillyBuilder().build());
+        gachiHandler.loadCurrentFloor();
     }
 
     public void loadGame(GachiPowerUser user, int numberOfFloor){
         gachiHandler.setHero(user);
         FloorHandler.getInstance().setFloor(numberOfFloor);
+        gachiHandler.loadCurrentFloor();
     }
 }

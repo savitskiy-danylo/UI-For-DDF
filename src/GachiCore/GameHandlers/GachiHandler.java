@@ -38,11 +38,22 @@ public class GachiHandler {
     }
 
     public boolean floorIsClear(){
+        if(currentFloor == null){
+            getNextFloor();
+            if(currentFloor == null){
+                messageBox.addNewMessage(new Message("Game over!", MessageType.SYSTEM));
+                return true;
+            }
+        }
         return currentFloor.isClear();
     }
 
     public GachiPowerUser getHero() {
         return hero;
+    }
+
+    public void loadCurrentFloor(){
+        currentFloor = floorHandler.getCurrentFloor();
     }
 
     public void setHero(GachiPowerUser hero) {

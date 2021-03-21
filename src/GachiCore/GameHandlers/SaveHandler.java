@@ -1,7 +1,7 @@
 package GachiCore.GameHandlers;
 
 import GachiCore.Builders.Base.PlayerBuilder;
-import GachiCore.Builders.PoidaBuilder;
+import GachiCore.Builders.BillyBuilder;
 import GachiCore.Components.Items.Base.Item;
 import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.ItemDictionary;
@@ -16,7 +16,7 @@ public class SaveHandler {
     private final GachiHandler gachiHandler = GachiHandler.getInstance();
     private GachiPowerUser user = gachiHandler.getHero();
     private final FloorHandler floorHandler = FloorHandler.getInstance();
-    private final PlayerBuilder playerBuilder = new PoidaBuilder();
+    private final PlayerBuilder playerBuilder = new BillyBuilder();
     private final ItemDictionary itemDictionary = ItemDictionary.getInstance();
     private final File fileSave = new File("Save.txt");
 
