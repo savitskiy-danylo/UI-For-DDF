@@ -21,6 +21,6 @@ public class YandereGirl extends Enemy implements AIUser {
 
     @Override
     public boolean wantAgreeWithSwap() {
-        return false;
+        return true;
     }
 }

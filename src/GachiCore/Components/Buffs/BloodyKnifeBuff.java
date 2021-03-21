@@ -4,26 +4,27 @@ import Controllers.MBox.Message;
 import Controllers.MBox.MessageBox;
 import Controllers.MBox.MessageType;
 import GachiCore.Components.Buffs.Base.Buff;
-import GachiCore.Components.Buffs.Base.BuffRefreshType;
 import GachiCore.Entities.Base.Entity;
 
 import java.util.Random;
 
-public class BowBuff extends Buff {
-    public BowBuff(){refreshOnce=true; refreshEachAttack=true;}
+public class BloodyKnifeBuff extends Buff {
     private final Random random = new Random();
-    private int damage = 5;
-    private int misschance = 11;
+    private int additionalDamage = 0, procChance = 15;
+    private int damage = 17;
+    private double criticalDamage = 0.2;
     private MessageBox messageBox = MessageBox.getInstance();
     private Message message;
 
+    public BloodyKnifeBuff() {
+        refreshOnce = true;
+        refreshEachAttack = true;
+    }
     @Override
     public void setTarget(Entity target) {
         super.setTarget(target);
-        message = new Message(target.getName() + "Missed a shot!", MessageType.NEGATIVE);
-
+        message = new Message(target.getName() + " deals a critical damage!", MessageType.POSITIVE);
     }
-
     @Override
     protected void takeOnOnce() {
         target.getStats().addDamage(damage);
@@ -36,15 +37,15 @@ public class BowBuff extends Buff {
 
     @Override
     protected void takeOnEachAttack() {
-        if(random.nextInt(100) + 1 < misschance){
-            target.getStats().minusCurrentDamage(target.getStats().getDamageCurrent());
+        if(random.nextInt(100) + 1 < procChance){
+            additionalDamage = (int) (target.getStats().getDamageCurrent() * criticalDamage);
+            target.getStats().addCurrentDamage(additionalDamage);
             messageBox.addNewMessage(message);
-
         }
-
-
-
     }
 
-
+    @Override
+    protected void takeOffEachAttack() {
+        additionalDamage = 0;
+    }
 }

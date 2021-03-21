@@ -8,7 +8,6 @@ import GachiCore.Entities.Base.Enemy;
 public class Skeleton extends Enemy implements AIUser {
     public Skeleton(Stats stats, Inventory inventory, boolean isRange) {
         super(stats, inventory, isRange);
-        Bow bow = new Bow();
     }
 
     @Override
