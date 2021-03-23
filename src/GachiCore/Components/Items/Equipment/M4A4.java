@@ -8,7 +8,7 @@ import GachiCore.Entities.Base.Enemy;
 
 public class M4A4 extends Equipment {
     public M4A4(){
-        super("M4A4", "Dangerous weapon!\ndamage + 32; misschance + 8%", 150, 75, EquipmentType.WEAPON);
+        super("M4A4", "Dangerous weapon!\ndamage + 32; misschance + 8%", 260, 130, EquipmentType.WEAPON);
         setQuality(Quality.THREE);
         buffs.add(new M4A4Buff());
 

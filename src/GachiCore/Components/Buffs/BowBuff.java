@@ -12,7 +12,7 @@ import java.util.Random;
 public class BowBuff extends Buff {
     public BowBuff(){refreshOnce=true; refreshEachAttack=true;}
     private final Random random = new Random();
-    private int damage = 10;
+    private int damage = 14;
     private int misschance = 11;
     private MessageBox messageBox = MessageBox.getInstance();
     private Message message;

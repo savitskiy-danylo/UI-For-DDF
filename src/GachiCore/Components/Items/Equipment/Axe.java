@@ -10,7 +10,7 @@ import GachiCore.Components.Items.Equipment.Base.Quality;
 public class Axe extends Equipment {
     public Axe(){
         super("Axe", "For brutal creature's\ndamage + 20;\n" +
-                "Berserk: hp every turn + 7", 120, 60, EquipmentType.WEAPON);
+                "Berserk: hp every turn + 7", 140, 70, EquipmentType.WEAPON);
         setQuality(Quality.TWO);
         buffs.add(new AxeBuff());
         buffs.add(new HpRegen(7));
