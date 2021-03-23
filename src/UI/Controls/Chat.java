@@ -2,20 +2,21 @@ package UI.Controls;
 
 import Controllers.MBox.Message;
 import Controllers.MBox.MessageBox;
+import Controllers.MBox.MessageType;
 import UI.Components.ViewComponent.ColorScheme;
 import UI.Controls.Base.Control;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.Stack;
 
 public class Chat extends Control {
     private MessageBox messageBox = MessageBox.getInstance();
-    private Stack<String> textOfMessages = new Stack<>();
-    private Stack<Label> labels = new Stack<>();
+    private LinkedList<Label> labels = new LinkedList<>();
     private final int countOfMessages = 3;
-    private int lastY = 28;
+    private int lastY = 27;
     private ColorScheme positive = new ColorScheme(view.getColorScheme().getBgText(),
                     Color.GREEN, view.getColorScheme().getBgBorders(), view.getColorScheme().getFgBorders()),
             negative = new ColorScheme(view.getColorScheme().getBgText(),
@@ -30,32 +31,32 @@ public class Chat extends Control {
 
     @Override
     public void draw() {
-        Message message = messageBox.getMessage();
+        if(labels.isEmpty()) return;
         int width = labels.stream().mapToInt(Label::getWidth).max().getAsInt();
-        int height = labels.stream().mapToInt(Label::getWidth).sum();
-        if(getY() + height > lastY) setY(lastY - height);
+        int height = labels.stream().mapToInt(Label::getHeight).sum();
+        view.setWidth(width);
+        view.setHeight(height + 2);
+        setY(lastY - height - 2);
         int y = getY() + 1;
-        int x = getX() + 1;
+        int x = getX();
+        view.draw();
         for (var label :
                 labels) {
             label.setY(y);
             label.setX(x + (width - label.getWidth())/2 + 1);
             label.draw();
 
-            y += label.getY();
+            y += label.getHeight();
         }
-        view.setText(message.getText());
-        view.draw();
     }
 
     private void newMessage(){
         String text = messageBox.getMessage().getText();
-        textOfMessages.push(text);
         Label label = new Label();
         label.setText(text);
         label.setColorScheme(getColorScheme());
-        labels.push(label);
-        if(labels.size() > countOfMessages) labels.pop();
+        labels.add(label);
+        if(labels.size() > countOfMessages) labels.removeFirst();
         draw();
     }
 

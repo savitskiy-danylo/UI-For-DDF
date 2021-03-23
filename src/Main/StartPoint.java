@@ -14,7 +14,6 @@ public class StartPoint {
 
     public static void onStartup(){
         saveHandler.load();
-        MessageBox.getInstance().addNewMessage(new Message("Welcome to the DEEP DARK FANTASY!", MessageType.SYSTEM));
     }
 
     public static void main(String[] args){
