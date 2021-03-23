@@ -24,10 +24,6 @@ public class Fight extends GameScene {
         inventory.addClickListener((InteractiveControl control) -> displayInventory(control));
         inventory.addClickListener(this::refreshPanelInfo);
 
-        Button skills = new Button();
-        skills.setText("Skills");
-        skills.addClickListener(this::refreshPanelInfo);
-
         Button nextTurn = new Button();
         nextTurn.setText("Next turn");
         nextTurn.addClickListener((InteractiveControl control) -> nextTurn(control));
@@ -38,7 +34,6 @@ public class Fight extends GameScene {
 
         menu.addControl(attack);
         menu.addControl(inventory);
-        menu.addControl(skills);
         menu.addControl(nextTurn);
 
         menu.setX(50);
