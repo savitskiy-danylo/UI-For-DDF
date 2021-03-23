@@ -4,6 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.SpearMan;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Consumables.MediumHealPotion;
 import GachiCore.Components.Items.Equipment.Spear;
 import GachiCore.Components.Items.Inventory;
@@ -15,13 +16,16 @@ import java.util.Random;
 public class SpearManBuilder extends AiBase implements AIBuilder {
     @Override
     public AIUser build(Entity enemy) {
-        Stats stats = new Stats(14, 18, 2,
+        Stats stats = new Stats(8, 10, 2,
                 30, 2, 80, 2);
         Inventory inventory = new Inventory();
         SpearMan spearMan = new SpearMan(stats, inventory, false);
         Spear spear = new Spear();
-        MediumHealPotion potion = new MediumHealPotion();
-        inventory.addItem(potion);
+        Consumable mediumHealPotion = new MediumHealPotion();
+        mediumHealPotion = getPotion(50, mediumHealPotion);
+        if (mediumHealPotion != null){
+            inventory.addItem(mediumHealPotion);
+        }
         spear.setOwner(spearMan);
         inventory.takeOn(spear);
         inventory.addMoney(randmoney());

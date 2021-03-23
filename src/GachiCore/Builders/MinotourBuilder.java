@@ -4,6 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.Minotour;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Consumables.MediumHealPotion;
 import GachiCore.Components.Items.Equipment.Axe;
 import GachiCore.Components.Items.Inventory;
@@ -15,13 +16,16 @@ import java.util.Random;
 public class MinotourBuilder extends AiBase implements AIBuilder {
     @Override
     public AIUser build(Entity enemy) {
-        Stats stats = new Stats(20, 23, 4, 40, 2, 80, 2);
+        Stats stats = new Stats(13, 16, 4, 40, 2, 80, 2);
         Inventory inventory = new Inventory();
         Minotour minotour = new Minotour(stats, inventory, false);
         Axe axe = new Axe();
-        MediumHealPotion potion = new MediumHealPotion();
+        Consumable mediumHealPotion = new MediumHealPotion();
+        mediumHealPotion = getPotion(50, mediumHealPotion);
+        if (mediumHealPotion != null){
+            inventory.addItem(mediumHealPotion);
+        }
         axe.setOwner(minotour);
-        inventory.addItem(potion);
         inventory.takeOn(axe);
         inventory.addMoney(randmoney());
 

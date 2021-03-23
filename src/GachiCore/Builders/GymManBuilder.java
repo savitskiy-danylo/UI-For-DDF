@@ -4,6 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.GymMan;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Consumables.LargeHealPotion;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -17,8 +18,11 @@ public class GymManBuilder extends AiBase implements AIBuilder {
         Stats stats = new Stats(25, 27, 4, 80, 2, 3, 2);
         Inventory inventory = new Inventory();
         GymMan gymMan = new GymMan(stats ,inventory, false);
-        LargeHealPotion potion = new LargeHealPotion();
-        inventory.addItem(potion);
+        Consumable largeHealPotion  = new LargeHealPotion();
+        largeHealPotion = getPotion(50, largeHealPotion);
+        if (largeHealPotion != null){
+            inventory.addItem(largeHealPotion);
+        }
         inventory.addMoney(randmoney());
         setName("GymMan");
         gymMan.setName("GymMan");

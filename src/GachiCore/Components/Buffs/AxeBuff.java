@@ -6,7 +6,7 @@ import GachiCore.Components.Buffs.Base.Buff;
 
 public class AxeBuff extends Buff {
     public AxeBuff(){refreshOnce=true;}
-    private int damage = 13;
+    private int damage = 20;
 
     @Override
     protected void takeOnOnce() {

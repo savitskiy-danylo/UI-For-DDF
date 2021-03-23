@@ -8,7 +8,7 @@ import GachiCore.Components.Items.Equipment.Base.Quality;
 
 public class Stick extends Equipment {
     public Stick(){
-        super("Stick", "woody\ndamage + 5",25, 15, EquipmentType.WEAPON);
+        super("Stick", "woody\ndamage + 7",25, 15, EquipmentType.WEAPON);
         setQuality(Quality.ONE);
         buffs.add(new StickBuff());
     }

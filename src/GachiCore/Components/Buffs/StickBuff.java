@@ -10,7 +10,7 @@ public class StickBuff extends Buff {
     public StickBuff(){
         refreshOnce=true;
     }
-    private int damage = 5;
+    private int damage = 7;
     private MessageBox messageBox = MessageBox.getInstance();
     private Message message;
 

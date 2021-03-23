@@ -8,7 +8,7 @@ import GachiCore.Components.Items.Equipment.Base.Quality;
 
 public class Spear extends Equipment {
     public Spear(){
-        super("Spear", "Spear of justice\ndamage+10; evasion + 3%", 80, 40, EquipmentType.WEAPON);
+        super("Spear", "Spear of justice\ndamage+18; evasion + 10%", 80, 40, EquipmentType.WEAPON);
         setQuality(Quality.TWO);
         buffs.add(new SpearBuff());
     }

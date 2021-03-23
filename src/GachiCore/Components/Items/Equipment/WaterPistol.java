@@ -8,7 +8,7 @@ import GachiCore.Entities.Base.Enemy;
 
 public class WaterPistol extends Equipment {
     public WaterPistol(){
-        super("WaterPistol", "Shoots water, yaay!\ndamage + 11; misschance 10%", 100, 50, EquipmentType.WEAPON);
+        super("WaterPistol", "Shoots water, yaay!\ndamage + 27; misschance 10%", 100, 50, EquipmentType.WEAPON);
         setQuality(Quality.TWO);
         buffs.add(new WaterPistolBuff());
     }

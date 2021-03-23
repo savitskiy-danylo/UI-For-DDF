@@ -14,7 +14,7 @@ public class WaterPistolBuff extends Buff {
         refreshEachAttack=true;
     }
     private final Random random = new Random();
-    private int damage = 11;
+    private int damage = 27;
     private int misschance = 10;
     private MessageBox messageBox = MessageBox.getInstance();
     private Message message;

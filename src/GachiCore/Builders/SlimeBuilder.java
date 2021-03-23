@@ -4,6 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.Slime;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
+import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Consumables.SmallHealPotion;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
@@ -18,8 +19,11 @@ public class SlimeBuilder extends AiBase implements AIBuilder {
                 10, 2, 80, 2);
         Inventory inventory = new Inventory();
         Slime slime = new Slime(stats, inventory, false);
-        SmallHealPotion potion = new SmallHealPotion();
-        inventory.addItem(potion);
+        Consumable smallHealPotion = new SmallHealPotion();
+        smallHealPotion = getPotion(50, smallHealPotion);
+        if (smallHealPotion != null){
+            inventory.addItem(smallHealPotion);
+        }
         inventory.addMoney(randmoney());
         setName("Slime");
         slime.setName("Slime");
