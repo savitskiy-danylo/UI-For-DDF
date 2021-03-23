@@ -20,12 +20,14 @@ public class SWATManBuilder extends AiBase implements AIBuilder {
         SWATMan swatMan = new SWATMan(stats, inventory, true);
         M4A4 m4A4 = new M4A4();
         LargeHealPotion potion = new LargeHealPotion();
+        m4A4.setOwner(swatMan);
         inventory.addItem(potion);
         inventory.takeOn(m4A4);
         inventory.addMoney(randmoney());
         setName("SWATMan");
         swatMan.setName("SWATMan");
         swatMan.setMessenger(messenger);
+        swatMan.setEnemy(enemy);
         return swatMan;
     }
     private int randmoney(){

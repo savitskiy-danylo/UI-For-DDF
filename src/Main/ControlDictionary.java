@@ -1,5 +1,6 @@
 package Main;
 
+import GachiCore.GameHandlers.SaveHandler;
 import UI.Actions;
 
 import java.util.HashMap;
@@ -17,6 +18,12 @@ public class ControlDictionary {
         mainDictionary.put("e", Actions.OK);
 
         additionalDictionary.put("exit", () -> StartPoint.onExit());
+        additionalDictionary.put("save", () -> save());
+    }
+
+    private static void save(){
+        SaveHandler.getInstance().save();
+        MainLoop.getInstance().redraw();
     }
 
     public static boolean isControl(String control){ return mainDictionary.containsKey(control); }

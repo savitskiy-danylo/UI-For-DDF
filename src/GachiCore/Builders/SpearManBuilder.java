@@ -22,6 +22,7 @@ public class SpearManBuilder extends AiBase implements AIBuilder {
         Spear spear = new Spear();
         MediumHealPotion potion = new MediumHealPotion();
         inventory.addItem(potion);
+        spear.setOwner(spearMan);
         inventory.takeOn(spear);
         inventory.addMoney(randmoney());
         setName("SpearMan");

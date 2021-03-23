@@ -23,6 +23,7 @@ public class GymManBuilder extends AiBase implements AIBuilder {
         setName("GymMan");
         gymMan.setName("GymMan");
         gymMan.setMessenger(messenger);
+        gymMan.setEnemy(enemy);
         return gymMan;
     }
     private int randmoney(){

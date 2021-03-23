@@ -1,6 +1,6 @@
-money=206;
-items=SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,SmallHealPotion,;
+money=914;
+items=;
 armor=NONE;
 weapon=NONE;
-gachiPower=334;
-floor=3;
+gachiPower=524;
+floor=7;

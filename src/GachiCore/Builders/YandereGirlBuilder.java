@@ -20,12 +20,14 @@ public class YandereGirlBuilder extends AiBase implements AIBuilder {
         YandereGirl yandereGirl = new YandereGirl(stats, inventory, false);
         BloodyKnife bloodyKnife = new BloodyKnife();
         LargeHealPotion potion = new LargeHealPotion();
+        bloodyKnife.setOwner(yandereGirl);
         inventory.addItem(potion);
         inventory.takeOn(bloodyKnife);
         inventory.addMoney(randmoney());
         setName("YandereGirl");
         yandereGirl.setName("YandereGirl");
         yandereGirl.setMessenger(messenger);
+        yandereGirl.setEnemy(enemy);
         return yandereGirl;
     }
     private int randmoney(){

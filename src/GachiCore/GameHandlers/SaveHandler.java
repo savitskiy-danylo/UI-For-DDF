@@ -6,6 +6,7 @@ import GachiCore.Components.Items.Base.Item;
 import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.ItemDictionary;
 import GachiCore.Entities.Base.GachiPowerUser;
+import Main.MainLoop;
 
 import java.io.*;
 import java.util.ArrayList;

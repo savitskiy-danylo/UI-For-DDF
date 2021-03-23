@@ -43,6 +43,10 @@ public class ItemDictionary {
 
     }
 
+    public Item[] getItems(){
+        return items.values().toArray(new Item[items.size()]);
+    }
+
     public Item getItem(String name){
         return items.getOrDefault(name, null);
     }

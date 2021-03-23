@@ -51,5 +51,9 @@ public class MainLoop {
         if(currentScene != null) start();
         else System.exit(0);//TODO Точка выхода
     }
+
+    public void redraw(){
+        if(currentScene != null) currentScene.draw();
+    }
 }
 

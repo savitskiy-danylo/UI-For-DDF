@@ -20,12 +20,14 @@ public class PewManBuilder extends AiBase implements AIBuilder {
         PewMan pewMan = new PewMan(stats, inventory, true);
         WaterPistol waterPistol = new WaterPistol();
         MediumHealPotion potion = new MediumHealPotion();
+        waterPistol.setOwner(pewMan);
         inventory.addItem(potion);
         inventory.takeOn(waterPistol);
         inventory.addMoney(randmoney());
         setName("PewMan");
         pewMan.setName("PewMan");
         pewMan.setMessenger(messenger);
+        pewMan.setEnemy(enemy);
         return pewMan;
     }
     private int randmoney(){

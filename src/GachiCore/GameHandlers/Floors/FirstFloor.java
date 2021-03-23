@@ -18,7 +18,6 @@ public class FirstFloor implements FloorBuilder {
         AIBuilder builder = new SlimeBuilder();
         FloorEnemies floorEnemies = new FloorEnemies(builder.build(getEnemy()),
                 builder.build(getEnemy()), builder.build(getEnemy()));
-        Shop shop = new Shop(new Bow(), new BrokenSword(), new Spear());
-        return new Floor(floorEnemies, shop);
+        return new Floor(floorEnemies);
     }
 }

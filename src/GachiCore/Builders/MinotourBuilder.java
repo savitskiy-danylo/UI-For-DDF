@@ -20,6 +20,7 @@ public class MinotourBuilder extends AiBase implements AIBuilder {
         Minotour minotour = new Minotour(stats, inventory, false);
         Axe axe = new Axe();
         MediumHealPotion potion = new MediumHealPotion();
+        axe.setOwner(minotour);
         inventory.addItem(potion);
         inventory.takeOn(axe);
         inventory.addMoney(randmoney());
@@ -27,6 +28,7 @@ public class MinotourBuilder extends AiBase implements AIBuilder {
         setName("Minotour");
         minotour.setName("Minotour");
         minotour.setMessenger(messenger);
+        minotour.setEnemy(enemy);
         return minotour;
     }
     private int randmoney(){

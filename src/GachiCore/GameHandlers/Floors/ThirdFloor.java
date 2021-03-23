@@ -16,6 +16,6 @@ public class ThirdFloor implements FloorBuilder {
                     new SkeletonBuilder(), new SlaveBuilder())
                     .build(getEnemy()));
         }
-        return new Floor(floorEnemies);
+        return new Floor(floorEnemies, getRandomShop());
     }
 }
