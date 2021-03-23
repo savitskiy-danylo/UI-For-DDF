@@ -11,6 +11,8 @@ public class HpRegen extends Buff {
 
     @Override
     protected void takeOnEachTurn() {
-        target.getStats().addStrength(hpRegen);
+        if(target.getStats().getStrength() == target.getStats().getStrengthMax()) return;
+        target.heal(hpRegen);
+
     }
 }

@@ -15,7 +15,7 @@ import java.util.Stack;
 public class Chat extends Control {
     private MessageBox messageBox = MessageBox.getInstance();
     private LinkedList<Label> labels = new LinkedList<>();
-    private final int countOfMessages = 3;
+    private final int countOfMessages = 4;
     private int lastY = 27;
     private ColorScheme positive = new ColorScheme(view.getColorScheme().getBgText(),
                     Color.GREEN, view.getColorScheme().getBgBorders(), view.getColorScheme().getFgBorders()),

@@ -11,6 +11,7 @@ import GachiCore.GameHandlers.Floors.Base.Shop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class ShopController {
     private final GachiHandler gachiHandler = GachiHandler.getInstance();
@@ -48,10 +49,11 @@ public class ShopController {
 
     public void buy(ItemInformation itemInformation){
         Item[] items = shop.getItems();
-        Item item = Arrays.stream(items)
+        Optional optional = Arrays.stream(items)
                 .filter((Item currentItem) -> currentItem.getName() == itemInformation.getName())
-                .findFirst()
-                .get();
+                .findFirst();
+        if(optional.isEmpty()) return;
+        Item item = (Item) optional.get();
         if(shop.canBuy(item)){
             shop.buy(item);
         }

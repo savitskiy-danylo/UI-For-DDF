@@ -33,6 +33,8 @@ public class ItemDictionary {
         items.put("Spear", new Spear());
         items.put("Stick", new Stick());
         items.put("WaterPistol", new WaterPistol());
+        items.put("LatexCostume", new LatexCostume());
+        items.put("LeatherArmor", new LeatherArmor());
 
         //endregion
         //region Consumable

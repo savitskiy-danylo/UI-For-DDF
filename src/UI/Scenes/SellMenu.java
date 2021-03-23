@@ -40,8 +40,8 @@ public class SellMenu extends GameScene {
     }
 
     public void refreshItems(){
-        if(items == null || items.length != shopController.getItems().length) {
-            items = shopController.getItems();
+        if(items == null || items.length != playerController.getItems().length) {
+            items = playerController.getItems();
             menu.clear();
             clearControls();
             for (var item :

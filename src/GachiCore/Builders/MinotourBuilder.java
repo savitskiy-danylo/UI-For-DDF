@@ -16,7 +16,7 @@ import java.util.Random;
 public class MinotourBuilder extends AiBase implements AIBuilder {
     @Override
     public AIUser build(Entity enemy) {
-        Stats stats = new Stats(13, 16, 4, 40, 2, 80, 2);
+        Stats stats = new Stats(8, 12, 4, 40, 2, 80, 2);
         Inventory inventory = new Inventory();
         Minotour minotour = new Minotour(stats, inventory, false);
         Axe axe = new Axe();

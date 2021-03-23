@@ -22,7 +22,7 @@ public class WaterPistolBuff extends Buff {
     @Override
     public void setTarget(Entity target) {
         super.setTarget(target);
-        message = new Message(target.getName() + "Missed a shot!", MessageType.NEGATIVE);
+        message = new Message(target.getName() + " missed a shot!", MessageType.NEGATIVE);
     }
 
     @Override

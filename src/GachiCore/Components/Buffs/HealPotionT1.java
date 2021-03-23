@@ -9,7 +9,7 @@ public class HealPotionT1 extends Buff {
 
     @Override
     protected void takeOnOnce() {
-        target.heal(15);
+        target.heal(20);
         removeBuff();
     }
 }

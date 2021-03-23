@@ -6,13 +6,13 @@ public class LeatherArmorBuff extends Buff {
     public LeatherArmorBuff(){refreshOnce=true;}
     @Override
     protected void takeOnOnce() {
-        target.getStats().addStrength(10);
-        target.getStats().addArmor(2);
+        target.getStats().addStrengthMax(30);
+        target.getStats().addArmor(7);
     }
 
     @Override
     protected void takeOffOnce() {
-        target.getStats().minusStrength(10);
-        target.getStats().minusArmor(2);
+        target.getStats().minusStrengthMax(30);
+        target.getStats().minusArmor(7);
     }
 }

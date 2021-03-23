@@ -9,13 +9,13 @@ public class LatexCostumeBuff extends Buff {
 
     @Override
     protected void takeOnOnce() {
-        target.getStats().addStrength(50);
+        target.getStats().addStrengthMax(50);
         target.getStats().addArmor(20);
     }
 
     @Override
     protected void takeOffOnce() {
-        target.getStats().minusStrength(50);
+        target.getStats().minusStrengthMax(50);
         target.getStats().minusArmor(20);
     }
 }

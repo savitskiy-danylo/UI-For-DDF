@@ -15,7 +15,7 @@ public class M4A4Buff extends Buff {
     }
 
     private final Random random = new Random();
-    private int damage = 15;
+    private int damage = 32;
     private int misschance = 8;
     private MessageBox messageBox = MessageBox.getInstance();
     private Message message;
@@ -23,7 +23,7 @@ public class M4A4Buff extends Buff {
     @Override
     public void setTarget(Entity target) {
         super.setTarget(target);
-        message = new Message(target.getName() + "Missed a shot!", MessageType.NEGATIVE);
+        message = new Message(target.getName() + " missed a shot!", MessageType.NEGATIVE);
     }
 
     @Override

@@ -12,9 +12,11 @@ public class FloorsDictionary {
         floors.put(2, new SecondFloor());
         floors.put(3, new ThirdFloor());
         floors.put(4, new FourthFloor());
-        floors.put(5, new FourthFloor());
-        floors.put(6, new FourthFloor());
+        floors.put(5, new FifthFloor());
+        floors.put(6, new SixthFloor());
         floors.put(7, new SeventhFloor());
+        floors.put(8, new SeventhFloor());
+        floors.put(9, new SeventhFloor());
     }
     private static final FloorsDictionary instance = new FloorsDictionary();
     private FloorsDictionary(){}
@@ -23,3 +25,14 @@ public class FloorsDictionary {
         return floors.getOrDefault(numberOfFloor, null);
     }
 }
+
+
+/*
+money=1000;
+items=M4A4,LatexCostume,Truth,LargeHealPotion,LargeHealPotion,LargeHealPotion;
+armor=LatexCostume;
+weapon=M4A4;
+gachiPower=100;
+floor=1;
+
+* */

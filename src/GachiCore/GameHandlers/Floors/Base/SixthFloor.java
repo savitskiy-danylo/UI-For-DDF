@@ -1,13 +1,14 @@
-package GachiCore.GameHandlers.Floors;
+package GachiCore.GameHandlers.Floors.Base;
 
-import GachiCore.Builders.*;
+import GachiCore.Builders.MinotourBuilder;
+import GachiCore.Builders.PewManBuilder;
+import GachiCore.Builders.SpearManBuilder;
 import GachiCore.GameHandlers.Floor;
 import GachiCore.GameHandlers.FloorEnemies;
-import GachiCore.GameHandlers.Floors.Base.FloorBuilder;
 
 import java.util.Random;
 
-public class FourthFloor implements FloorBuilder {
+public class SixthFloor implements FloorBuilder{
     @Override
     public Floor getFloor() {
         FloorEnemies floorEnemies = new FloorEnemies();
@@ -16,6 +17,6 @@ public class FourthFloor implements FloorBuilder {
                     new PewManBuilder(), new MinotourBuilder(), new SpearManBuilder())
                     .build(getEnemy()));
         }
-        return new Floor(floorEnemies, getRandomShop(new Random(2)));
+        return new Floor(floorEnemies, getRandomShop(new Random(6)));
     }
 }

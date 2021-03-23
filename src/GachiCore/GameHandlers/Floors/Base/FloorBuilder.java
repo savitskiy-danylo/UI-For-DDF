@@ -10,6 +10,7 @@ import GachiCore.GameHandlers.GachiHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Random;
 
 public interface FloorBuilder {
@@ -17,17 +18,17 @@ public interface FloorBuilder {
         return GachiHandler.getInstance().getHero();
     }
     public Floor getFloor();
-    public default AIBuilder getRandomBuilder(AIBuilder... builders){
-        Random random = new Random();
+    public default AIBuilder getRandomBuilder(Random random, AIBuilder... builders){
         return builders[random.nextInt(builders.length)];
     }
-    public default Shop getRandomShop(){
-        ArrayList<Equipment> equipment = new ArrayList<>();
+
+    public default Shop getRandomShop(Random random){
+        ArrayList<Item> equipment = new ArrayList<>();
         Arrays.stream(ItemDictionary.getInstance().getItems())
                 .filter((Item item) -> item instanceof Equipment)
-                .forEach((Item item) -> equipment.add((Equipment) item));
+                .forEach((Item item) -> equipment.add(item));
+
         int size = equipment.size();
-        Random random = new Random();
         return new Shop(equipment.get(random.nextInt(size)),
                 equipment.get(random.nextInt(size)),
                 equipment.get(random.nextInt(size)));

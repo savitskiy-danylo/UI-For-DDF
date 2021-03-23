@@ -1,6 +1,7 @@
 package UI.Scenes;
 
 import Controllers.ItemInformation;
+import GachiCore.Components.Items.Base.Item;
 import UI.Controls.Base.InteractiveControl;
 import UI.Controls.Button;
 import UI.Controls.Label;
@@ -8,10 +9,13 @@ import UI.Controls.Panel;
 import UI.Scenes.Base.GameScene;
 import UI.Scenes.Base.Scene;
 
+import java.util.ArrayList;
+
 public class Inventory extends GameScene {
     private Panel menu, panelInfo;
     private Button back;
     private Scene caller;
+    private final ArrayList<ItemInformation> itemInformations = new ArrayList<>();
     public Inventory() {
         menu = new Panel();
         panelInfo = new Panel();
@@ -50,13 +54,26 @@ public class Inventory extends GameScene {
 
     @Override
     public void draw() {
-        if(menu.getControls().size() - 1 != playerController.getItems().length)
+
+        if(menu.getControls().size() - 1 != playerController.getItems().length) {
             refreshItems();
+        }else {
+            ArrayList<ItemInformation> currentItems = (ArrayList<ItemInformation>) itemInformations.clone();
+            ItemInformation[] playersItems = playerController.getItems().clone();
+            for (var item :
+                    currentItems) {
+                if(!playersItems[currentItems.indexOf(item)].getName().equals(item.getName())) {
+                    refreshItems();
+                    break;
+                }
+            }
+        }
         super.draw();
     }
 
     public void refreshItems(){
         menu.clear();
+        itemInformations.clear();
         clearControls();
 
         menu.addControl(back);
@@ -65,6 +82,7 @@ public class Inventory extends GameScene {
             Button button = new Button();
             button.setText(item.getName());
             button.setItemInformation(item);
+            itemInformations.add(item);
             button.addClickListener((InteractiveControl control) -> use(control));
             button.addFocusChangedListener(this::refreshPanelInfo);
             menu.addControl(button);

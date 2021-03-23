@@ -16,7 +16,7 @@ import java.util.Random;
 public class PewManBuilder extends AiBase implements AIBuilder {
     @Override
     public AIUser build(Entity enemy) {
-        Stats stats = new Stats(8, 12, 2, 22, 2, 80, 2);
+        Stats stats = new Stats(4, 8, 2, 22, 2, 80, 2);
         Inventory inventory = new Inventory();
         PewMan pewMan = new PewMan(stats, inventory, true);
         WaterPistol waterPistol = new WaterPistol();
@@ -25,11 +25,11 @@ public class PewManBuilder extends AiBase implements AIBuilder {
         if (mediumHealPotion != null){
             inventory.addItem(mediumHealPotion);
         }
+        setName("PewMan");
+        pewMan.setName("PewMan");
         waterPistol.setOwner(pewMan);
         inventory.takeOn(waterPistol);
         inventory.addMoney(randmoney());
-        setName("PewMan");
-        pewMan.setName("PewMan");
         pewMan.setMessenger(messenger);
         pewMan.setEnemy(enemy);
         return pewMan;
