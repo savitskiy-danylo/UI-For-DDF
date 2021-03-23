@@ -56,9 +56,18 @@ public class FloorMenu extends GameScene {
 
     private void nextFloor(InteractiveControl control){
         if(fight == null) fight = SceneContainer.getScene("Fight");
+        if(playerController.isLastFloor()) {
+            displayEnd();
+            return;
+        }
         playerController.nextFloor();
         setCurrentScene(false);
         fight.setCurrentScene(true);
+    }
+
+    private void displayEnd() {
+        setCurrentScene(false);
+        SceneContainer.getScene("TheEnd").setCurrentScene(true);
     }
 
     @Override

@@ -8,11 +8,13 @@ import GachiCore.Components.Items.Base.Item;
 import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.Inventory;
+import GachiCore.Entities.Base.Enemy;
 import GachiCore.Entities.Base.Entity;
 import GachiCore.Entities.Base.GachiPowerUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 
 public class FloorEnemies {
     private ArrayList<AIUser> bots = new ArrayList<>();
@@ -141,4 +143,9 @@ public class FloorEnemies {
         messageBox.addNewMessage(new Message(item.getName(), MessageType.POSITIVE));
     }
 
+    public Enemy[] getEnemies(){
+        ArrayList<Entity> alive = new ArrayList<>();
+        bots.stream().filter(AIUser::isAlive).forEach((AIUser user) -> alive.add((Entity) user));
+        return alive.toArray(new Enemy[alive.size()]);
+    }
 }

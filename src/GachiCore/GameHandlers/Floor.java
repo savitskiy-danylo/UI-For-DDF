@@ -1,7 +1,10 @@
 package GachiCore.GameHandlers;
 
+import GachiCore.Entities.Base.Enemy;
 import GachiCore.Entities.Base.GachiPowerUser;
 import GachiCore.GameHandlers.Floors.Base.Shop;
+
+import java.util.ArrayList;
 
 public class Floor {
     private GachiPowerUser hero = GachiHandler.getInstance().getHero();
@@ -37,5 +40,9 @@ public class Floor {
     }
 
     public Shop getShop(){ return shop; }
+
+    public Enemy[] getEnemies(){
+        return enemies.getEnemies();
+    }
 
 }

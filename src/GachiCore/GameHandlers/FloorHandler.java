@@ -36,4 +36,8 @@ public class FloorHandler {
         }
         return currentFloor;
     }
+
+    public boolean isLastFloor(){
+        return floorsDictionary.getFloor(numberOfFloor + 1) == null;
+    }
 }

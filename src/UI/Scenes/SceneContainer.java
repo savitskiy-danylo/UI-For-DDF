@@ -18,6 +18,7 @@ public class SceneContainer {
                 "and and finally you remember the purpose of your life\n" +
                 " is revenge for the murder of the clan."));
         scenes.put("Shop", new Shop());
+        scenes.put("TheEnd", new TheEnd());
         scenes.put("BuyMenu", new BuyMenu());
         scenes.put("SellMenu", new SellMenu());
         scenes.put("Inventory", new Inventory());

@@ -4,6 +4,7 @@ import GachiCore.Components.Items.Base.Item;
 import GachiCore.Components.Items.Consumables.Base.Consumable;
 import GachiCore.Components.Items.Equipment.Base.Equipment;
 import GachiCore.Components.Items.Equipment.Base.EquipmentType;
+import GachiCore.Entities.Base.Enemy;
 import GachiCore.Entities.Base.GachiPowerUser;
 import GachiCore.GameHandlers.FloorHandler;
 import GachiCore.GameHandlers.GachiHandler;
@@ -82,6 +83,12 @@ public class PlayerController{
         }
     }
 
+    public String[] getEnemies(){
+        ArrayList<String> enemies = new ArrayList<>();
+        Arrays.stream(floorHandler.getCurrentFloor().getEnemies()).forEach((Enemy enemy) -> enemies.add(enemy.getName()));
+        return enemies.toArray(new String[enemies.size()]);
+    }
+
     private void useConsumable(Consumable consumable){
         player.getInventory().use(consumable);
     }
@@ -115,5 +122,9 @@ public class PlayerController{
 
     public void nextFloor(){
         gachiHandler.nextFloor();
+    }
+
+    public boolean isLastFloor(){
+        return floorHandler.isLastFloor();
     }
 }

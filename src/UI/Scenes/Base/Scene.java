@@ -43,6 +43,13 @@ public class Scene {
 
     }
 
+    protected void setFocusControl(InteractiveControl control){
+        index = interactiveControls.indexOf(control);
+        if(currentFocus != null) currentFocus.setFocus(false);
+        currentFocus = control;
+        currentFocus.setFocus(true);
+    }
+
     public void refreshAutoRedrawControls(){
         ArrayList<Control> controlsForRemove = new ArrayList<>();
         redraw.stream().filter((Control control) -> !control.isRedraw()).forEach(controlsForRemove::add);

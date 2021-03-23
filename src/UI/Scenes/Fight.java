@@ -1,35 +1,40 @@
 package UI.Scenes;
 
-import GachiCore.GameHandlers.SaveHandler;
-import Main.StartPoint;
 import UI.Controls.Base.InteractiveControl;
 import UI.Controls.Button;
+import UI.Controls.Label;
 import UI.Controls.Panel;
 import UI.Scenes.Base.GameScene;
 import UI.Scenes.Base.Scene;
 
 public class Fight extends GameScene {
-    private Panel menu;
+    private Panel menu, panelInfo;
     private Scene floorMenu, inventory;
     public Fight() {
         menu = new Panel();
+        panelInfo = new Panel();
 
         Button attack = new Button();
         attack.setText("Attack");
         attack.addClickListener((InteractiveControl control) -> attack(control));
+        attack.addClickListener(this::refreshPanelInfo);
 
         Button inventory = new Button();
         inventory.setText("Inventory");
         inventory.addClickListener((InteractiveControl control) -> displayInventory(control));
+        inventory.addClickListener(this::refreshPanelInfo);
 
         Button skills = new Button();
         skills.setText("Skills");
         skills.addClickListener((InteractiveControl control) -> attack(control));
+        skills.addClickListener(this::refreshPanelInfo);
 
         Button nextTurn = new Button();
         nextTurn.setText("Next turn");
         nextTurn.addClickListener((InteractiveControl control) -> nextTurn(control));
+        nextTurn.addClickListener(this::refreshPanelInfo);
 
+        panelInfo.setHeading("Enemies");
         menu.setHeading("Fight");
 
         menu.addControl(attack);
@@ -39,9 +44,17 @@ public class Fight extends GameScene {
 
         menu.setX(50);
         menu.setY(5);
+
+        panelInfo.setX(menu.getX() + menu.getWidth() + 5);
+        panelInfo.setY(menu.getY());
+
         menu.setRedraw(true);
+        panelInfo.setRedraw(true);
 
         addControl(menu);
+        addControl(panelInfo);
+
+        refreshPanelInfo(null);
     }
 
     private void displaySkills(InteractiveControl control){
@@ -71,7 +84,29 @@ public class Fight extends GameScene {
     private void nextTurn(InteractiveControl control){
         playerController.nextTurn();
         if(!playerController.isAlive()){
-            System.exit(0);
+            setCurrentScene(false);
+            SceneContainer.getScene("TheEnd").setCurrentScene(true);
+            return;
         }
+    }
+
+    @Override
+    public void draw() {
+        refreshPanelInfo(null);
+        super.draw();
+    }
+
+    private void refreshPanelInfo(InteractiveControl control){
+        panelInfo.clear();
+        String enemies = "";
+        int counter = 1;
+        for (var enemy :
+                playerController.getEnemies()) {
+            enemies += counter + ". " + enemy + "\n";
+            counter++;
+        }
+        Label label = new Label();
+        label.setText(enemies);
+        panelInfo.addControl(label);
     }
 }

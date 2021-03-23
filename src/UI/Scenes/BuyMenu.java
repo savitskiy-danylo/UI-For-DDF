@@ -42,6 +42,7 @@ public class BuyMenu extends GameScene {
         if(items == null || items.length != shopController.getItems().length) {
             items = shopController.getItems();
             menu.clear();
+            clearControls();
             for (var item :
                     items) {
                 Button button = new Button();
@@ -53,6 +54,7 @@ public class BuyMenu extends GameScene {
             }
             menu.addControl(back);
             addControl(menu);
+            setFocusControl(back);
         }
     }
 
