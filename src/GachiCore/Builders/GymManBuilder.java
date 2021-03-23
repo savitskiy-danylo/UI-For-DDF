@@ -4,7 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.GymMan;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
-import GachiCore.Components.Items.Consumables.Base.LargeHealPotion;
+import GachiCore.Components.Items.Consumables.LargeHealPotion;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
 import GachiCore.Entities.Base.Entity;

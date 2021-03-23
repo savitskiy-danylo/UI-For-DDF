@@ -13,4 +13,8 @@ public class Label extends Control {
         heightMin = view.getHeight();
         widthMin = view.getWidth();
     }
+
+    public int getWidthWithoutBorders(){
+        return view.getWidthWithoutBorders();
+    }
 }

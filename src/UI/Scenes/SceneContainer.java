@@ -10,6 +10,16 @@ public class SceneContainer {
     private static boolean isInit = false;
 
     private static void init(){
+
+        scenes.put("Prologue 1", new Prologue("You woke up in the lowest floor of the dungeon,\n" +
+                " someone stole your sword and outfit.\n" +
+                "All you remember is your name ♂Mr.Billy♂\n" +
+                " and your brother ♂Van♂ who killed your clan \n" +
+                "and and finally you remember the purpose of your life\n" +
+                " is revenge for the murder of the clan."));
+        scenes.put("Shop", new Shop());
+        scenes.put("BuyMenu", new BuyMenu());
+        scenes.put("SellMenu", new SellMenu());
         scenes.put("Inventory", new Inventory());
         scenes.put("Fight", new Fight());
         scenes.put("Settings", new Settings());

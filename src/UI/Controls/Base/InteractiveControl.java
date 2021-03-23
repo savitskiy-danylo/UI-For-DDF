@@ -53,4 +53,7 @@ public abstract class InteractiveControl extends Control{
                 .forEach((Consumer<? super InteractiveControl> consumer) -> consumer.accept(this));
     }
 
+    public boolean isFocus() {
+        return focus;
+    }
 }

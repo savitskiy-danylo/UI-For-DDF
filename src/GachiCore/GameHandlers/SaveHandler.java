@@ -71,31 +71,32 @@ public class SaveHandler {
             if(field.contains("items"))
             {
                 items = field.split("=")[1].split(",");
-                break;
+                continue;
             }
 
             if(field.contains("money")){
                 money = Integer.parseInt(field.split("=")[1]);
-                break;
+                continue;
             }
 
             if(field.contains("armor")){
                 armor = field.split("=")[1];
-                break;
+                continue;
             }
 
             if(field.contains("weapon")){
                 weapon = field.split("=")[1];
-                break;
+                continue;
             }
 
             if(field.contains("floor")){
                 floor = Integer.parseInt(field.split("=")[1]);
-                break;
+                continue;
             }
 
             if(field.contains("gachiPower")){
                 gachiPower = Integer.parseInt(field.split("=")[1]);
+                continue;
             }
         }
         user.getInventory().addMoney(money);

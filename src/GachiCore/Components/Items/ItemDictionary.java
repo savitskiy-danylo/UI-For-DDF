@@ -1,8 +1,10 @@
 package GachiCore.Components.Items;
 
 import GachiCore.Components.Items.Base.Item;
+import GachiCore.Components.Items.Consumables.LargeHealPotion;
+import GachiCore.Components.Items.Consumables.MediumHealPotion;
+import GachiCore.Components.Items.Consumables.SmallHealPotion;
 import GachiCore.Components.Items.Equipment.*;
-import GachiCore.Components.Items.Consumables.Base.*;
 
 
 import java.util.HashMap;

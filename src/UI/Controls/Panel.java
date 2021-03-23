@@ -36,6 +36,10 @@ public class Panel extends Container {
         }
     }
 
+    private void refreshWidthMin(){
+        widthMin = Math.max(heading.getWidthWithoutBorders(), controls.stream().max(Comparator.comparing(Control::getWidth)).get().getWidth());
+    }
+
     private void refreshSizes(){
         refreshWidthMin();
         refreshHeightMin();
@@ -65,11 +69,6 @@ public class Panel extends Container {
     public int getWidth() {
         refreshWidthMin();
         return widthMin;
-    }
-
-    private void refreshWidthMin(){
-        widthMin = Math.max(heading.getWidth(),
-                controls.stream().max(Comparator.comparing(Control::getWidth)).get().getWidth());
     }
 
     @Override

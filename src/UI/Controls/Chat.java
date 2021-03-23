@@ -6,6 +6,7 @@ import UI.Components.ViewComponent.ColorScheme;
 import UI.Controls.Base.Control;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Chat extends Control {
     private MessageBox messageBox = MessageBox.getInstance();

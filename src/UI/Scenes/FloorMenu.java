@@ -9,14 +9,18 @@ import UI.Scenes.Base.Scene;
 
 public class FloorMenu extends GameScene {
     private Panel menu;
-    private Scene inventory, fight;
+    private Scene inventory, fight, shop;
+    private int currentFloor;
     private PlayerController playerController = PlayerController.getInstance();
     public FloorMenu(){
         menu = new Panel();
-        menu.setHeading("Floor №" + playerController.getFloorNumber());
+        currentFloor = playerController.getFloorNumber();
 
+        menu.setHeading("Floor №" + currentFloor);
         Button shop = new Button();
+
         shop.setText("Shop");
+        shop.addClickListener(this::displayShop);
 
         Button inventory = new Button();
         inventory.setText("Inventory");
@@ -37,6 +41,12 @@ public class FloorMenu extends GameScene {
         addControl(menu);
     }
 
+    private void displayShop(InteractiveControl control){
+        if(shop == null) shop = SceneContainer.getScene("Shop");
+        setCurrentScene(false);
+        shop.setCurrentScene(true);
+    }
+
     private void displayInventory(InteractiveControl control){
         if(inventory == null) inventory = SceneContainer.getScene("Inventory");
         ((Inventory) inventory).setCaller(this);
@@ -53,7 +63,11 @@ public class FloorMenu extends GameScene {
 
     @Override
     public void setCurrentScene(boolean currentScene) {
+        if(currentFloor != playerController.getFloorNumber())
+        {
+            currentFloor = playerController.getFloorNumber();
+            menu.setHeading("Floor №" + currentFloor);
+        }
         super.setCurrentScene(currentScene);
-        menu.setHeading("Floor №" + playerController.getFloorNumber());
     }
 }

@@ -10,6 +10,7 @@ import GachiCore.GameHandlers.GachiHandler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 public class PlayerController{
     private final GachiHandler gachiHandler = GachiHandler.getInstance();
@@ -63,21 +64,20 @@ public class PlayerController{
     }
 
     public void useItem(ItemInformation itemInformation){
-        Consumable consumable = player.getInventory().getConsumables().stream().
+        Optional optional = player.getInventory().getConsumables().stream().
                 filter((Consumable cons) -> compare(itemInformation, cons)).
-                findFirst().
-                get();
-        if(consumable != null){
-            useConsumable(consumable);
+                findFirst();
+
+        if(optional.isPresent()){
+            useConsumable((Consumable) optional.get());
             return;
         }
 
-        Equipment equipment = player.getInventory().getEquipments().stream().
+        optional = player.getInventory().getEquipments().stream().
                 filter((Equipment equip) -> compare(itemInformation, equip)).
-                findFirst().
-                get();
-        if(consumable != null){
-            changeEquip(equipment);
+                findFirst();
+        if(optional.isPresent()){
+            changeEquip((Equipment) optional.get());
             return;
         }
     }

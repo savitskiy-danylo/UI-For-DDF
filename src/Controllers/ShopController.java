@@ -1,5 +1,8 @@
 package Controllers;
 
+import Controllers.MBox.Message;
+import Controllers.MBox.MessageBox;
+import Controllers.MBox.MessageType;
 import GachiCore.Components.Items.Base.Item;
 import GachiCore.Entities.Base.GachiPowerUser;
 import GachiCore.GameHandlers.FloorHandler;
@@ -15,6 +18,8 @@ public class ShopController {
     private final GachiPowerUser user = gachiHandler.getHero();
     private Shop shop;
     private static final ShopController instance = new ShopController();
+    private final MessageBox messageBox = MessageBox.getInstance();
+    private final Message noStore = new Message("There is no store on this floor.", MessageType.NEGATIVE);
     private ShopController(){}
     public static ShopController getInstance() {
         return instance;
@@ -23,12 +28,22 @@ public class ShopController {
     public boolean haveShop(){
         if(floorHandler.getCurrentFloor().getShop() == null) {
             shop = null;
+            messageBox.addNewMessage(noStore);
             return false;
         }
         else {
             shop = floorHandler.getCurrentFloor().getShop();
             return true;
         }
+    }
+
+    public ItemInformation[] getItems(){
+        if(shop == null) return null;
+        ArrayList<ItemInformation> itemInformation = new ArrayList<>();
+        Arrays.stream(shop.getItems()).forEach((Item item) -> itemInformation.add(new ItemInformation(
+                item.getName(), item.getDescription(), item.getPurchasePrice(), item.getSellingPrice()
+        )));
+        return itemInformation.toArray(new ItemInformation[itemInformation.size()]);
     }
 
     public void buy(ItemInformation itemInformation){

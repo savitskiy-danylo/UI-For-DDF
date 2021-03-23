@@ -124,4 +124,8 @@ public class View {
         refreshHeight();
         widthMax = width + 2;
     }
+
+    public int getWidthWithoutBorders(){
+        return width;
+    }
 }

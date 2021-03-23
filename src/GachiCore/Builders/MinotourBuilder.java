@@ -4,7 +4,7 @@ import GachiCore.AI.AIUser;
 import GachiCore.AI.Minotour;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
-import GachiCore.Components.Items.Consumables.Base.MediumHealPotion;
+import GachiCore.Components.Items.Consumables.MediumHealPotion;
 import GachiCore.Components.Items.Equipment.Axe;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;

@@ -43,6 +43,12 @@ public class Scene {
 
     }
 
+    public void refreshAutoRedrawControls(){
+        ArrayList<Control> controlsForRemove = new ArrayList<>();
+        redraw.stream().filter((Control control) -> !control.isRedraw()).forEach(controlsForRemove::add);
+        controlsForRemove.forEach(redraw::remove);
+    }
+
     private void addContainer(Container container){
         ArrayList<Control> controls = container.getControls();
         searchAndAddInteractiveControls(controls.toArray(new Control[controls.size()]));

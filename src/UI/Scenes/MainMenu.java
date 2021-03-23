@@ -44,7 +44,7 @@ public class MainMenu extends Scene {
     }
 
     private void displayFight(InteractiveControl control){
-        if(fight == null) fight = SceneContainer.getScene("Fight");
+        if(fight == null) fight = SceneContainer.getScene("Prologue 1");
         setCurrentScene(false);
         fight.setCurrentScene(true);
     }

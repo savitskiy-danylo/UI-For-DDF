@@ -1,12 +1,10 @@
 package GachiCore.Builders;
 
 import GachiCore.AI.AIUser;
-import GachiCore.AI.Slime;
 import GachiCore.AI.SpearMan;
 import GachiCore.Builders.Base.AIBuilder;
 import GachiCore.Builders.Base.AiBase;
-import GachiCore.Components.Items.Consumables.Base.MediumHealPotion;
-import GachiCore.Components.Items.Consumables.Base.SmallHealPotion;
+import GachiCore.Components.Items.Consumables.MediumHealPotion;
 import GachiCore.Components.Items.Equipment.Spear;
 import GachiCore.Components.Items.Inventory;
 import GachiCore.Components.Stats;
