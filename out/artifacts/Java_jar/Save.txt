@@ -1,6 +1,0 @@
-money=914;
-items=;
-armor=NONE;
-weapon=NONE;
-gachiPower=524;
-floor=7;

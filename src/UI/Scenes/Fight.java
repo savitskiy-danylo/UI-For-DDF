@@ -26,7 +26,6 @@ public class Fight extends GameScene {
 
         Button skills = new Button();
         skills.setText("Skills");
-        skills.addClickListener((InteractiveControl control) -> attack(control));
         skills.addClickListener(this::refreshPanelInfo);
 
         Button nextTurn = new Button();

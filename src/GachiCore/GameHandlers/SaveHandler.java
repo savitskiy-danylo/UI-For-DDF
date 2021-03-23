@@ -127,7 +127,7 @@ public class SaveHandler {
                 itemNames) {
             save += name + ",";
         }
-        save += ";\n";
+        save += "Truth;\n";
 
         Equipment armor = user.getInventory().getArmor();
         if(armor==null)
